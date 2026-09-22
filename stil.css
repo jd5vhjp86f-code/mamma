@@ -1,0 +1,201 @@
+/*
+ * Radiologie Dammtor – Entscheidungshilfe MRT der Brust
+ *
+ * Farben, Typografie und Bauteile folgen dem Auftritt der Praxis. Keine
+ * Webfonts, keine externen Ressourcen: Damit verlässt keine Besucher-IP den
+ * ausliefernden Server, und es entsteht keine Einwilligungspflicht.
+ */
+:root{
+  --blau:#0F2846; --blau-hell:#1A3D66; --teal:#00838F; --teal-hell:#E0F2F1;
+  --grau-bg:#F8FAFC; --grau-100:#F1F5F9; --grau-200:#E2E8F0; --grau-400:#94A3B8;
+  --grau-600:#475569; --grau-800:#1E293B;
+  --gruen-bg:#ECFDF5; --gruen:#047857; --gruen-rand:#10B981;
+  --gelb-bg:#FFFBEB; --gelb:#B45309; --gelb-rand:#F59E0B;
+  --blau-bg:#EFF6FF; --blau-akzent:#1D4ED8; --blau-rand:#60A5FA;
+  --lila-bg:#F5F3FF; --lila:#5B21B6; --lila-rand:#8B5CF6;
+  --radius:12px;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);background:var(--grau-bg);color:var(--grau-800);
+     line-height:1.6;-webkit-font-smoothing:antialiased;
+     display:flex;flex-direction:column;min-height:100vh}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.25;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+/* Überschriften bekommen beim Seitenwechsel programmatisch den Fokus, damit
+   Screenreader sie vorlesen und die Tastaturbedienung an der richtigen Stelle
+   weitergeht. Ein sichtbarer Rahmen hilft dabei niemandem und irritiert. */
+h2[tabindex="-1"]:focus,h2[tabindex="-1"]:focus-visible{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+         clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* --- Kopf ------------------------------------------------------------ */
+.topbar{background:var(--blau);color:#fff;font-size:.8rem}
+.topbar .inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+               flex-wrap:wrap;padding:.5rem 1rem}
+.topbar a{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
+.topbar a:hover{color:var(--teal-hell)}
+.topbar .kontakt{display:flex;gap:1.25rem;flex-wrap:wrap}
+.kopf{background:#fff;border-bottom:1px solid var(--grau-200)}
+.kopf .inner{display:flex;justify-content:space-between;align-items:center;padding:1rem}
+.logo{text-decoration:none}
+.logo span{display:block;font-family:var(--serif);line-height:1.05}
+.logo .z1{font-size:1.6rem;color:var(--blau)}
+.logo .z2{font-size:1.25rem;color:var(--teal)}
+.inner{max-width:72rem;margin:0 auto}
+
+/* --- Hero ------------------------------------------------------------ */
+.hero{background:var(--blau-hell);color:#fff;text-align:center;padding:2.5rem 1rem}
+.hero h1{font-size:1.7rem;margin-bottom:.5rem}
+.hero p{margin:0;color:var(--teal-hell);font-size:1.05rem}
+
+/* --- Layout ---------------------------------------------------------- */
+main{max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;width:100%;flex:1 0 auto}
+
+/* --- Hinweisbanner --------------------------------------------------- */
+.banner{background:var(--blau-bg);border:2px solid var(--blau-rand);border-radius:var(--radius);
+        padding:1rem 1.15rem;margin-bottom:1.5rem;display:flex;gap:.9rem;align-items:flex-start}
+.banner strong{color:var(--blau-akzent);display:block;margin-bottom:.15rem}
+.banner p{margin:0;font-size:.92rem}
+.banner svg{flex:0 0 auto;color:var(--blau-akzent);margin-top:.15rem}
+
+/* --- Karte ----------------------------------------------------------- */
+.karte{background:#fff;border:1px solid var(--grau-200);border-radius:var(--radius);
+       padding:1.25rem;margin-bottom:1.25rem}
+@media (min-width:640px){ .karte{padding:1.75rem} }
+
+/* --- Fortschritt ----------------------------------------------------- */
+.fortschritt{margin-bottom:1.25rem}
+.fortschritt .schiene{height:6px;background:var(--grau-200);border-radius:999px;overflow:hidden}
+.fortschritt .fuellung{height:100%;background:var(--teal);width:0;border-radius:999px;
+                       transition:width .35s ease}
+.fortschritt .zaehler{font-size:.75rem;font-weight:700;text-transform:uppercase;
+                      letter-spacing:.06em;color:var(--grau-600);margin-bottom:.45rem;display:block}
+
+/* --- Frage ----------------------------------------------------------- */
+.frage h2{font-size:1.25rem;color:var(--blau);margin-bottom:.35rem}
+.frage .hinweis{font-size:.9rem;color:var(--grau-600);margin:0 0 1.1rem}
+.antworten{display:flex;flex-direction:column;gap:.55rem;margin:0;padding:0;border:0}
+.antwort{display:flex;gap:.85rem;align-items:flex-start;width:100%;text-align:left;
+         padding:.9rem 1rem;background:#fff;border:2px solid var(--grau-200);border-radius:10px;
+         cursor:pointer;font:inherit;color:inherit;
+         transition:border-color .15s,background .15s,transform .1s}
+.antwort:hover{border-color:var(--teal);background:rgba(224,242,241,.35)}
+.antwort:active{transform:translateY(1px)}
+.antwort .marke{flex:0 0 auto;width:1.3rem;height:1.3rem;border:2px solid var(--grau-400);
+                border-radius:50%;margin-top:.15rem;transition:border-color .15s,box-shadow .15s}
+.antwort:hover .marke{border-color:var(--teal);box-shadow:inset 0 0 0 4px var(--teal)}
+.antwort .text{font-size:.95rem}
+.antwort .text small{display:block;color:var(--grau-600);font-size:.83rem;margin-top:.2rem;
+                     line-height:1.45}
+
+/* --- Ergebnis -------------------------------------------------------- */
+.ergebnis{border-radius:var(--radius);border:1px solid;border-left-width:7px;padding:1.25rem;
+          margin-bottom:1.25rem}
+.ergebnis .etikett{font-size:.72rem;font-weight:700;text-transform:uppercase;
+                   letter-spacing:.07em;display:block;margin-bottom:.35rem}
+.ergebnis h2{font-size:1.3rem;margin-bottom:.6rem}
+.ergebnis p{margin:.6rem 0 0;font-size:.95rem}
+.ergebnis .kern{font-size:1rem;font-weight:600;margin-top:0}
+.e-kasse{background:var(--gruen-bg);border-color:var(--gruen-rand)}
+.e-kasse .etikett,.e-kasse h2{color:var(--gruen)}
+.e-weg{background:var(--blau-bg);border-color:var(--blau-rand)}
+.e-weg .etikett,.e-weg h2{color:var(--blau-akzent)}
+.e-schritt{background:var(--lila-bg);border-color:var(--lila-rand)}
+.e-schritt .etikett,.e-schritt h2{color:var(--lila)}
+.e-selbst{background:var(--gelb-bg);border-color:var(--gelb-rand)}
+.e-selbst .etikett,.e-selbst h2{color:var(--gelb)}
+.e-offen{background:var(--grau-100);border-color:var(--grau-400)}
+.e-offen .etikett,.e-offen h2{color:var(--grau-600)}
+
+/* --- Blöcke im Ergebnis ---------------------------------------------- */
+.block{background:#fff;border:1px solid var(--grau-200);border-radius:10px;
+       padding:1.1rem 1.2rem;margin-bottom:1rem}
+.block h3{font-size:1.02rem;color:var(--blau);margin-bottom:.6rem;font-family:var(--serif)}
+.block ul{margin:0;padding-left:1.15rem}
+.block li{font-size:.92rem;margin-bottom:.5rem}
+.block li:last-child{margin-bottom:0}
+
+.preis{background:#fff;border:1px solid var(--gelb-rand);border-left:5px solid var(--gelb-rand);
+       border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.preis .betrag{font-family:var(--sans);font-size:1.7rem;font-weight:800;color:var(--gelb);
+               line-height:1.1;display:block}
+.preis .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+              color:var(--grau-600);display:block;margin-bottom:.15rem}
+.preis p{font-size:.88rem;color:var(--grau-600);margin:.5rem 0 0}
+
+.termin{background:var(--blau);color:#fff;border-radius:10px;padding:1.1rem 1.2rem;
+        margin-bottom:1rem}
+.termin h3{font-size:1.02rem;color:#fff;margin-bottom:.6rem}
+.termin ul{list-style:none;margin:0;padding:0}
+.termin li{font-size:.93rem;margin-bottom:.45rem}
+.termin li:last-child{margin-bottom:0}
+.termin a{color:var(--teal-hell);font-weight:700}
+
+.quellenkasten{font-size:.85rem;color:var(--grau-600);border-top:1px solid var(--grau-200);
+               padding-top:.9rem;margin-top:.25rem}
+.quellenkasten h3{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+                  color:var(--grau-600);font-family:var(--sans);margin-bottom:.5rem}
+.quellenkasten ul{margin:0;padding-left:1.15rem}
+.quellenkasten li{margin-bottom:.45rem;line-height:1.5}
+.quellenkasten a{color:var(--teal);font-weight:600}
+
+/* --- Aktionen -------------------------------------------------------- */
+.aktionen{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.25rem}
+.aktionen button{font-family:inherit;font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;
+                 border-radius:9px;border:2px solid var(--grau-200);background:#fff;
+                 color:var(--grau-600);cursor:pointer}
+.aktionen button:hover{border-color:var(--teal);color:var(--blau)}
+
+/* --- Haftungshinweis -------------------------------------------------- */
+.disclaimer{font-size:.84rem;color:var(--grau-600);background:var(--grau-100);
+            border:1px solid var(--grau-200);border-radius:10px;padding:.95rem 1.1rem}
+.disclaimer strong{color:var(--grau-800)}
+
+/* --- Fuß -------------------------------------------------------------- */
+footer{background:var(--blau);color:#fff;border-top:6px solid var(--teal);
+       padding:2.5rem 1rem 1.5rem;flex-shrink:0}
+footer .spalten{display:grid;gap:2rem;grid-template-columns:1fr;margin-bottom:2rem}
+footer h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin:0 0 .7rem;
+          font-family:var(--sans)}
+footer p,footer li{font-size:.85rem;color:#CBD5E1;margin:.2rem 0}
+footer ul{list-style:none;padding:0;margin:0}
+footer a{color:#CBD5E1}
+.fussnoten{border-top:1px solid var(--blau-hell);padding-top:1.5rem}
+.fussnoten p{font-size:.78rem;line-height:1.6;color:#CBD5E1;max-width:48rem;margin:0 auto .6rem}
+.fussnoten .stand{color:var(--teal-hell);font-weight:700}
+
+@media (min-width:640px){
+  .hero h1{font-size:2.1rem}
+  footer .spalten{grid-template-columns:repeat(3,1fr)}
+}
+
+/* --- Rechtsseiten ----------------------------------------------------- */
+.rechtstext{max-width:46rem}
+.rechtstext .karte h2{font-size:1.15rem;color:var(--blau);margin:1.75rem 0 .5rem}
+.rechtstext .karte h2:first-of-type{margin-top:0}
+.rechtstext p{margin:.4rem 0;font-size:.95rem}
+.rechtstext dl{margin:.4rem 0}
+.rechtstext dt{font-weight:700;color:var(--blau);margin-top:.7rem;font-size:.9rem}
+.rechtstext dd{margin:.15rem 0 0;font-size:.95rem}
+.rechtstext a{color:var(--teal)}
+.zurueck{display:inline-block;margin-top:1.5rem;font-size:.9rem;color:var(--teal);
+         text-decoration:none;font-weight:600}
+.zurueck:hover{text-decoration:underline}
+
+/* --- Druck ------------------------------------------------------------ */
+@media print{
+  .topbar,.hero,.aktionen,.fortschritt,.banner{display:none!important}
+  body{background:#fff}
+  .karte,.ergebnis,.block,.preis{break-inside:avoid;border:1px solid #999;background:#fff}
+  .ergebnis{border-left-width:4px}
+  .termin{background:#fff;color:#000;border:1px solid #999}
+  .termin h3,.termin a{color:#000}
+  footer{background:#fff;color:#000;border-top:2px solid #000;padding-top:1rem}
+  footer p,footer li,footer a,.fussnoten p,.fussnoten .stand{color:#000}
+  footer .spalten{display:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.75em;word-break:break-all}
+}

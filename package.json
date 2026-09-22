@@ -1,0 +1,12 @@
+{
+  "name": "mamma-kostenuebernahme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Entscheidungshilfe zur Kostenuebernahme der MRT der Brust, Radiologie Dammtor",
+  "scripts": {
+    "pruefe": "node tools/pruefe.mjs",
+    "rauchtest": "node tools/rauchtest.mjs",
+    "test": "node tools/pruefe.mjs && node tools/rauchtest.mjs",
+    "serve": "python3 -m http.server 8080"
+  }
+}
