@@ -63,6 +63,7 @@ data/regeln.js      Fragebaum, Ergebnisse, Quellen, Preis – der gesamte Inhalt
 app.js              Ablauflogik, ohne einen einzigen medizinischen Satz
 tools/pruefe.mjs    Prüfung des Regelwerks
 tools/rauchtest.mjs End-to-End-Test im Browser
+robots.txt          Sperrung für Suchmaschinen bis zur Freigabe
 CNAME               mamma.rosenbaum.hamburg
 ```
 
@@ -105,24 +106,21 @@ Der Rauchtest braucht Playwright und Chromium. Weicht die installierte
 Chromium-Fassung von der erwarteten ab, nennt man den Pfad über die
 Umgebungsvariable `CHROMIUM_PFAD`.
 
-## Offene Punkte
+## Pflege
 
-* **Preis prüfen.** Die `ca. 460 Euro` in `data/regeln.js` sind eine Angabe der
-  Praxis und in keiner externen Quelle nachprüfbar. Zum Vergleich nennt der
-  IGeL-Monitor eine Spanne von 230 bis 600 Euro. Vor der Veröffentlichung gegen
-  den tatsächlichen GOÄ-Ansatz abgleichen.
-* **Telefonnummer bestätigen.** Die Seite zeigt `040 3500484-54` für die
-  Terminvergabe, wie im Vorentwurf angegeben. Der Vortestwahrscheinlichkeits-
-  rechner der Praxis nennt dagegen `040 3500484-0`. Beide stehen jetzt im Fuß;
-  falls die Durchwahl nicht stimmt, ist sie in `data/regeln.js` unter
-  `praxis.telefonAnzeige` **und** `praxis.telefonLink` zu ändern – der Validator
-  erzwingt, dass beide zusammenpassen.
-* **Zentrum in Hamburg.** Das Ergebnis `zentrumGen` nennt das Universitäts-
-  klinikum Eppendorf als Konsortialzentrum. Vor Veröffentlichung gegen die
-  aktuelle Zentrumsliste des Konsortiums abgleichen.
-* **Berufsrecht.** Die Seite nennt Preise und verlinkt die Terminbuchung. Das
-  ist zulässige Sachinformation; ob die Praxis den Ton so tragen möchte, ist
-  eine Entscheidung der Praxis.
+* **Preis.** Die `ca. 460 Euro` stehen in `data/regeln.js` unter `PREIS`. Bei
+  Änderung des Untersuchungsumfangs oder des GOÄ-Steigerungssatzes dort
+  anpassen und `stand` mitziehen.
+* **Telefonnummer.** `praxis.telefonAnzeige` und `praxis.telefonLink` in
+  `data/regeln.js`. Der Validator erzwingt, dass beide zusammenpassen, und
+  prüft dasselbe für jede Nummer in den HTML-Seiten.
+* **Rechtslage.** Der EBM wird quartalsweise fortgeschrieben. Ändert sich
+  Abschnitt 34.4.3, sind die Ergebnisse `gkvRezidiv`, `gkvCup`, `abklaerung`,
+  `staging` und `implantat` zu prüfen. Gleiches gilt, wenn der G-BA die
+  Altersgrenze des Mammographie-Screenings absenkt – dann ist `frueherkennung`
+  samt Quelle `gbaScreening` anzupassen.
+* **Stand-Datum.** `R.stand` in `data/regeln.js` erscheint im Seitenfuß. Bei
+  jeder inhaltlichen Änderung mitziehen.
 
 ## Quellen
 
@@ -145,7 +143,20 @@ GitHub Pages, Quelle `main`, Verzeichnis `/`. Die Datei `CNAME` setzt die
 eigene Domain. Im DNS von `rosenbaum.hamburg` zeigt `mamma` als CNAME auf
 `jd5vhjp86f-code.github.io`.
 
-**Das Repository muss dafür öffentlich sein** – GitHub Pages aus einem privaten
+Das Repository muss dafür öffentlich sein – GitHub Pages aus einem privaten
 Repository setzt einen kostenpflichtigen Tarif voraus. Danach in den
 Repository-Einstellungen unter Pages „Enforce HTTPS" aktivieren, sobald das
 Zertifikat ausgestellt ist.
+
+### Die Seite ist für Suchmaschinen gesperrt
+
+Bis zur Freigabe durch die Praxis tragen alle drei Seiten
+`<meta name="robots" content="noindex, nofollow">`, und `robots.txt` sperrt
+den gesamten Pfad. Die Seite ist damit über ihre Adresse erreichbar, taucht
+aber nicht in Suchergebnissen auf.
+
+**Zur Freigabe beides gemeinsam ändern:** die `noindex`-Zeilen aus den drei
+HTML-Seiten entfernen (in `index.html` gegen `index, follow` tauschen) und in
+`robots.txt` `Disallow: /` streichen. `tools/pruefe.mjs` lässt einen
+Zwischenzustand nicht durch – eine Seite mit `noindex` bei freigebender
+`robots.txt` ist ein harter Fehler, und umgekehrt.

@@ -1,0 +1,6 @@
+# Vorlaeufig gesperrt bis zur Freigabe durch die Praxis.
+# Zum Start: "Disallow: /" entfernen und die noindex-Angaben in den
+# HTML-Seiten mit entfernen. tools/pruefe.mjs erzwingt, dass beides
+# zusammenpasst.
+User-agent: *
+Disallow: /

@@ -23,21 +23,16 @@ window.MAMMA_REGELN = (function () {
     name: "Radiologie Dammtor",
     telefonAnzeige: "040 3500484-54",
     telefonLink: "tel:+4940350048454",
-    zentraleAnzeige: "040 3500484-0",
-    zentraleLink: "tel:+494035004840",
     mail: "info@radiologie-dammtor.de",
     doctolib: "https://www.doctolib.de/gemeinschaftspraxis/hamburg/mrtdiagnostik-dammtorwall?pid=practice-79030",
     web: "https://www.radiologie-dammtor.de"
   };
 
   /* ------------------------------------------------------------------ *
-   * Preis der Selbstzahlerleistung.                                     *
+   * Preis der Selbstzahlerleistung. Von der Praxis bestätigt.           *
    *                                                                     *
-   * PFLEGEHINWEIS: Der Betrag ist eine Angabe der Praxis und in keiner   *
-   * externen Quelle nachprüfbar. Er ist bei jeder Änderung des           *
-   * Untersuchungsumfangs oder des GOÄ-Steigerungssatzes zu prüfen. Zum   *
-   * Vergleich nennt der IGeL-Monitor eine Spanne von 230 bis 600 Euro    *
-   * (Quelle: igelMonitor).                                               *
+   * PFLEGEHINWEIS: Bei jeder Änderung des Untersuchungsumfangs oder des  *
+   * GOÄ-Steigerungssatzes neu festzulegen und "stand" mitzuziehen.       *
    * ------------------------------------------------------------------ */
   var PREIS = {
     betrag: "ca. 460 Euro",

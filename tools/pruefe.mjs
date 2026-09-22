@@ -146,7 +146,32 @@ for (const datei of ["index.html", "impressum.html", "datenschutz.html"]) {
   }
 }
 
-/* --- 8. Telefonnummern: Anzeige und Link müssen zusammenpassen ---------- */
+/* --- 8. Sperrung für Suchmaschinen: alles oder nichts ------------------- */
+/* Die Seite ist bis zur Freigabe gesperrt. Eine halb gesperrte Seite – etwa
+   noindex im HTML, aber eine robots.txt, die alles erlaubt – ist der Fall, der
+   in der Praxis schiefgeht. Deshalb wird hier Gleichlauf erzwungen. */
+const robots = readFileSync(join(wurzel, "robots.txt"), "utf8");
+const robotsSperrt = /^\s*Disallow:\s*\/\s*$/m.test(robots);
+const seitenNoindex = ["index.html", "impressum.html", "datenschutz.html"]
+  .map((d) => ({ d, gesperrt: /<meta\s+name="robots"\s+content="[^"]*noindex/i
+    .test(readFileSync(join(wurzel, d), "utf8")) }));
+
+if (!/^User-agent:\s*\*/m.test(robots)) {
+  fehler.push("robots.txt nennt keine Regel für alle Suchmaschinen.");
+}
+for (const { d, gesperrt } of seitenNoindex) {
+  if (gesperrt !== robotsSperrt) {
+    fehler.push(robotsSperrt
+      ? `robots.txt sperrt die Seite, ${d} trägt aber kein noindex.`
+      : `${d} trägt noindex, robots.txt gibt die Seite aber frei.`);
+  }
+}
+if (robotsSperrt) {
+  warnungen.push("Die Seite ist für Suchmaschinen gesperrt (noindex + robots.txt). " +
+                 "Zur Freigabe beides gemeinsam entfernen.");
+}
+
+/* --- 9. Telefonnummern: Anzeige und Link müssen zusammenpassen ---------- */
 const alleTexte = ["index.html", "impressum.html", "datenschutz.html"]
   .map((d) => readFileSync(join(wurzel, d), "utf8"))
   .concat(readFileSync(join(wurzel, "data/regeln.js"), "utf8"))
