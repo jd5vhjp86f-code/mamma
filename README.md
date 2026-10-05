@@ -1,6 +1,6 @@
 # Entscheidungshilfe MRT der Brust
 
-Entscheidungshilfe der Radiologie Hamburg: Ordnet in bis zu vier Fragen ein, ob die
+Entscheidungshilfe der Radiologie Dammtor: Ordnet in bis zu vier Fragen ein, ob die
 MRT der Brust von der gesetzlichen Krankenversicherung übernommen wird, über
 einen anderen Weg läuft oder eine Selbstzahlerleistung ist.
 

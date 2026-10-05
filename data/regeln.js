@@ -20,7 +20,7 @@ window.MAMMA_REGELN = (function () {
    * auseinanderlaufen.                                                  *
    * ------------------------------------------------------------------ */
   var PRAXIS = {
-    name: "Radiologie Hamburg",
+    name: "Radiologie Dammtor",
     telefonAnzeige: "040 3500484-54",
     telefonLink: "tel:+4940350048454",
     mail: "info@radiologie-dammtor.de",

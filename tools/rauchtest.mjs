@@ -175,7 +175,7 @@ for (const k of ["x", "y", "w", "h"]) {
     fehler.push(`Praxissymbol ist beschnitten oder verschoben: ${k}=${inhalt[k]}, erwartet ${soll[k]}.`);
   }
 }
-if ((await page.locator('header .marke .z1').textContent()) !== "Radiologie Hamburg") {
+if ((await page.locator('header .marke .z1').textContent()) !== "Radiologie Dammtor") {
   fehler.push("Der Praxisname im Kopf stimmt nicht.");
 }
 if (einzeldatei) {
