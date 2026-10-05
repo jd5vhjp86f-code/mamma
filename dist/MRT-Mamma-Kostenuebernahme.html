@@ -1,3 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Zahlt die Krankenkasse die MRT der Brust? Interne Entscheidungshilfe der Radiologie Hamburg: in wenigen Fragen zur Einordnung nach EBM, Leitlinie und Vertragslage.">
+<!-- Interne Fassung. Nicht fuer die Veroeffentlichung bestimmt. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Zahlt die Kasse die MRT der Brust? &ndash; Radiologie Hamburg</title>
+<!-- Bewusst ohne externe Ressourcen: keine CDNs, keine Webfonts, keine Analytik.
+     Die Seite laeuft auch als einzelne Datei vom Dateisystem, ganz ohne Netz. -->
+<style>
+/*
+ * Radiologie Hamburg – Entscheidungshilfe MRT der Brust
+ *
+ * Die Palette ist aus dem Praxissymbol abgeleitet. Die fünf Markenfarben
+ * stehen unverändert im Logo:
+ *
+ *   #007aa8  Konturlinie und Befundring   -> --blau       (Leitfarbe)
+ *   #2a8fbd  Hintergrund der Kachel       -> --blau-mittel
+ *   #68b1d4  linke Brustfläche            -> --blau-hell
+ *   #e8879f  rechte Brustfläche           -> --rosa       (nur Fläche, nie Text)
+ *   #eceae5  warmes Weiß des Rings        -> --creme
+ *
+ * Rosa trägt auf Weiß nur 2,5:1 Kontrast. Es ist deshalb Akzentfläche und
+ * Markenzeichen, niemals Schrift- oder Statusfarbe. Die Statusfarben sind
+ * getrennt gewählt und liegen alle über 4,5:1.
+ *
+ * Keine Webfonts, keine externen Ressourcen: Die Seite läuft als einzelne
+ * Datei vom Dateisystem, auch ohne Netz.
+ */
+:root{
+  /* --- Marke ------------------------------------------------------- */
+  --blau:#007AA8; --blau-tief:#005B7D; --blau-mittel:#2A8FBD;
+  --blau-hell:#68B1D4; --blau-blass:#E3F1F8;
+  --rosa:#E8879F; --rosa-blass:#FDEEF3; --creme:#ECEAE5;
+
+  /* --- Neutrale ---------------------------------------------------- */
+  --bg:#F7F9FB; --grau-100:#F1F5F8; --grau-200:#DFE7EC; --grau-400:#8FA3B0;
+  --grau-600:#4A5C68; --grau-800:#1D2B34;
+
+  /* --- Status (alle ≥ 4,5:1 auf Weiß) ------------------------------ */
+  --gruen-bg:#ECFDF5; --gruen:#047857; --gruen-rand:#10B981;
+  --gelb-bg:#FFF8EC; --gelb:#B45309; --gelb-rand:#F0A33C;
+  --lila-bg:#F5F3FF; --lila:#6D28D9; --lila-rand:#A78BFA;
+
+  --radius:14px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--grau-800);
+     line-height:1.6;-webkit-font-smoothing:antialiased;
+     display:flex;flex-direction:column;min-height:100vh}
+h1,h2,h3,h4{font-weight:700;line-height:1.25;margin:0;letter-spacing:-.015em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blau);outline-offset:2px;border-radius:5px}
+h2[tabindex="-1"]:focus,h2[tabindex="-1"]:focus-visible{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+         clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* --- Kopf ------------------------------------------------------------ */
+.topbar{background:var(--blau-tief);color:#fff;font-size:.8rem}
+.topbar .inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+               flex-wrap:wrap;padding:.5rem 1rem}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:var(--blau-hell)}
+.topbar .kontakt{display:flex;gap:1.25rem;flex-wrap:wrap}
+.topbar .intern{font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+                font-size:.7rem;color:var(--creme)}
+
+.kopf{background:#fff;border-bottom:1px solid var(--grau-200)}
+.kopf .inner{display:flex;align-items:center;gap:.9rem;padding:.9rem 1rem}
+.marke{display:flex;align-items:center;gap:.85rem;text-decoration:none}
+/* Die Leitfarbe des Symbols kommt aus "color". Das ist die einzige Eigenschaft,
+   die in den Schattenbaum eines <use> vererbt wird - so trägt dasselbe Symbol
+   im hellen Kopf die Markenfarbe und im dunklen Fuß Weiß. */
+.marke svg{display:block;width:72px;height:auto;flex:0 0 auto;color:var(--blau)}
+.marke .wort{display:flex;flex-direction:column;line-height:1.1}
+.marke .z1{font-size:1.35rem;font-weight:700;color:var(--blau-tief);letter-spacing:-.02em}
+.marke .z2{font-size:.78rem;font-weight:600;color:var(--blau);letter-spacing:.14em;
+           text-transform:uppercase}
+.inner{max-width:72rem;margin:0 auto}
+
+/* --- Hero ------------------------------------------------------------ */
+.hero{background:var(--blau);color:#fff;padding:2.25rem 1rem;position:relative;overflow:hidden}
+/* Die konzentrischen Ringe des Logos als ruhiges Hintergrundmotiv. */
+.hero::after{content:"";position:absolute;right:-90px;top:50%;transform:translateY(-50%);
+             width:320px;height:320px;border-radius:50%;
+             border:1.5px solid rgba(255,255,255,.17);
+             box-shadow:0 0 0 48px rgba(255,255,255,.055) inset;pointer-events:none}
+.hero .inner{position:relative;z-index:1;text-align:center}
+.hero h1{font-size:1.65rem;margin-bottom:.45rem}
+.hero p{margin:0;color:var(--creme);font-size:1.02rem}
+
+/* --- Layout ---------------------------------------------------------- */
+main{max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;width:100%;flex:1 0 auto}
+
+/* --- Hinweisbanner --------------------------------------------------- */
+.banner{background:var(--blau-blass);border:1.5px solid var(--blau-hell);
+        border-radius:var(--radius);padding:1rem 1.15rem;margin-bottom:1.5rem;
+        display:flex;gap:.9rem;align-items:flex-start}
+.banner strong{color:var(--blau-tief);display:block;margin-bottom:.15rem}
+.banner p{margin:0;font-size:.92rem}
+.banner svg{flex:0 0 auto;color:var(--blau);margin-top:.15rem}
+
+/* --- Karte ----------------------------------------------------------- */
+.karte{background:#fff;border:1px solid var(--grau-200);border-radius:var(--radius);
+       padding:1.25rem;margin-bottom:1.25rem;box-shadow:0 1px 2px rgba(0,91,125,.04)}
+@media (min-width:640px){ .karte{padding:1.75rem} }
+
+/* --- Fortschritt ----------------------------------------------------- */
+.fortschritt{margin-bottom:1.3rem}
+.fortschritt .schiene{height:6px;background:var(--grau-200);border-radius:999px;overflow:hidden}
+.fortschritt .fuellung{height:100%;width:0;border-radius:999px;transition:width .35s ease;
+                       background:linear-gradient(90deg,var(--blau-hell),var(--blau))}
+.fortschritt .zaehler{font-size:.73rem;font-weight:700;text-transform:uppercase;
+                      letter-spacing:.08em;color:var(--blau);margin-bottom:.45rem;display:block}
+
+/* --- Frage ----------------------------------------------------------- */
+.frage h2{font-size:1.3rem;color:var(--blau-tief);margin-bottom:.35rem}
+.frage .hinweis{font-size:.9rem;color:var(--grau-600);margin:0 0 1.1rem}
+.antworten{display:flex;flex-direction:column;gap:.55rem;margin:0;padding:0;border:0}
+.antwort{display:flex;gap:.85rem;align-items:flex-start;width:100%;text-align:left;
+         padding:.9rem 1rem;background:#fff;border:2px solid var(--grau-200);border-radius:11px;
+         cursor:pointer;font:inherit;color:inherit;
+         transition:border-color .15s,background .15s,transform .1s}
+.antwort:hover{border-color:var(--blau);background:var(--blau-blass)}
+.antwort:active{transform:translateY(1px)}
+.antwort .marke-punkt{flex:0 0 auto;width:1.3rem;height:1.3rem;border:2px solid var(--grau-400);
+                      border-radius:50%;margin-top:.15rem;
+                      transition:border-color .15s,box-shadow .15s}
+.antwort:hover .marke-punkt{border-color:var(--blau);box-shadow:inset 0 0 0 4px var(--blau)}
+.antwort .text{font-size:.95rem}
+.antwort .text small{display:block;color:var(--grau-600);font-size:.83rem;margin-top:.2rem;
+                     line-height:1.45}
+
+/* --- Ergebnis -------------------------------------------------------- */
+.ergebnis{border-radius:var(--radius);border:1px solid;border-left-width:7px;padding:1.25rem;
+          margin-bottom:1.25rem}
+.ergebnis .etikett{font-size:.72rem;font-weight:700;text-transform:uppercase;
+                   letter-spacing:.08em;display:block;margin-bottom:.35rem}
+.ergebnis h2{font-size:1.32rem;margin-bottom:.6rem}
+.ergebnis p{margin:.6rem 0 0;font-size:.95rem}
+.ergebnis .kern{font-size:1rem;font-weight:600;margin-top:0}
+.e-kasse{background:var(--gruen-bg);border-color:var(--gruen-rand)}
+.e-kasse .etikett,.e-kasse h2{color:var(--gruen)}
+.e-weg{background:var(--blau-blass);border-color:var(--blau)}
+.e-weg .etikett,.e-weg h2{color:var(--blau-tief)}
+.e-schritt{background:var(--lila-bg);border-color:var(--lila-rand)}
+.e-schritt .etikett,.e-schritt h2{color:var(--lila)}
+.e-selbst{background:var(--gelb-bg);border-color:var(--gelb-rand)}
+.e-selbst .etikett,.e-selbst h2{color:var(--gelb)}
+.e-offen{background:var(--grau-100);border-color:var(--grau-400)}
+.e-offen .etikett,.e-offen h2{color:var(--grau-600)}
+
+/* --- Blöcke im Ergebnis ---------------------------------------------- */
+.block{background:#fff;border:1px solid var(--grau-200);border-radius:11px;
+       padding:1.1rem 1.2rem;margin-bottom:1rem}
+.block h3{font-size:1.02rem;color:var(--blau-tief);margin-bottom:.6rem}
+.block ul{margin:0;padding-left:1.15rem}
+.block li{font-size:.92rem;margin-bottom:.5rem}
+.block li::marker{color:var(--blau-hell)}
+.block li:last-child{margin-bottom:0}
+
+.preis{background:#fff;border:1px solid var(--gelb-rand);border-left:5px solid var(--gelb-rand);
+       border-radius:11px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.preis .betrag{font-size:1.75rem;font-weight:800;color:var(--gelb);line-height:1.1;display:block}
+.preis .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+              color:var(--grau-600);display:block;margin-bottom:.15rem}
+.preis p{font-size:.88rem;color:var(--grau-600);margin:.5rem 0 0}
+
+/* Kontaktblock: nimmt das Rosa des Logos als Akzentkante auf. */
+.termin{background:var(--blau-tief);color:#fff;border-radius:11px;padding:1.1rem 1.2rem;
+        margin-bottom:1rem;border-left:5px solid var(--rosa)}
+.termin h3{font-size:1.02rem;color:#fff;margin-bottom:.6rem}
+.termin ul{list-style:none;margin:0;padding:0}
+.termin li{font-size:.93rem;margin-bottom:.45rem}
+.termin li:last-child{margin-bottom:0}
+.termin a{color:var(--blau-hell);font-weight:700}
+
+.quellenkasten{font-size:.85rem;color:var(--grau-600);border-top:1px solid var(--grau-200);
+               padding-top:.9rem;margin-top:.25rem}
+.quellenkasten h3{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+                  color:var(--grau-600);margin-bottom:.5rem}
+.quellenkasten ul{margin:0;padding-left:1.15rem}
+.quellenkasten li{margin-bottom:.45rem;line-height:1.5}
+.quellenkasten a{color:var(--blau);font-weight:600}
+
+/* --- Aktionen -------------------------------------------------------- */
+.aktionen{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.25rem}
+.aktionen button{font-family:inherit;font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;
+                 border-radius:10px;border:2px solid var(--grau-200);background:#fff;
+                 color:var(--grau-600);cursor:pointer}
+.aktionen button:hover{border-color:var(--blau);color:var(--blau-tief);background:var(--blau-blass)}
+
+/* --- Haftungshinweis -------------------------------------------------- */
+.disclaimer{font-size:.84rem;color:var(--grau-600);background:var(--creme);
+            border:1px solid var(--grau-200);border-radius:11px;padding:.95rem 1.1rem}
+.disclaimer strong{color:var(--grau-800)}
+
+/* --- Fuß -------------------------------------------------------------- */
+footer{background:var(--blau-tief);color:#fff;border-top:5px solid var(--rosa);
+       padding:2.25rem 1rem 1.5rem;flex-shrink:0}
+footer .spalten{display:grid;gap:2rem;grid-template-columns:1fr;margin-bottom:2rem}
+footer h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 .7rem;
+          color:var(--creme)}
+footer p,footer li{font-size:.85rem;color:#CBDDE6;margin:.2rem 0}
+footer ul{list-style:none;padding:0;margin:0}
+footer a{color:#CBDDE6}
+footer .marke svg{color:#fff;width:56px}
+footer .marke .wort{white-space:nowrap}
+footer .marke .z1{color:#fff;font-size:1.15rem}
+footer .marke .z2{color:var(--blau-hell)}
+.fussnoten{border-top:1px solid rgba(255,255,255,.16);padding-top:1.5rem}
+.fussnoten p{font-size:.78rem;line-height:1.6;color:#CBDDE6;max-width:48rem;margin:0 auto .6rem}
+.fussnoten .stand{color:var(--creme);font-weight:700}
+
+@media (min-width:640px){
+  .hero h1{font-size:2.05rem}
+  footer .spalten{grid-template-columns:repeat(3,1fr)}
+  .marke svg{width:88px}
+  .marke .z1{font-size:1.5rem}
+}
+
+/* --- Rechtsseiten ----------------------------------------------------- */
+.rechtstext{max-width:46rem}
+.rechtstext .karte h2{font-size:1.15rem;color:var(--blau-tief);margin:1.75rem 0 .5rem}
+.rechtstext .karte h2:first-of-type{margin-top:0}
+.rechtstext p{margin:.4rem 0;font-size:.95rem}
+.rechtstext dl{margin:.4rem 0}
+.rechtstext dt{font-weight:700;color:var(--blau-tief);margin-top:.7rem;font-size:.9rem}
+.rechtstext dd{margin:.15rem 0 0;font-size:.95rem}
+.rechtstext a{color:var(--blau)}
+.zurueck{display:inline-block;margin-top:1.5rem;font-size:.9rem;color:var(--blau);
+         text-decoration:none;font-weight:600}
+.zurueck:hover{text-decoration:underline}
+
+/* --- Druck ------------------------------------------------------------ */
+@media print{
+  .topbar,.aktionen,.fortschritt,.banner{display:none!important}
+  body{background:#fff}
+  .hero{background:#fff;color:#000;padding:1rem 0;border-bottom:2px solid #000}
+  .hero::after{display:none}
+  .hero h1{font-size:1.4rem}
+  .hero p{color:#000}
+  .karte,.ergebnis,.block,.preis{break-inside:avoid;border:1px solid #999;background:#fff;
+                                 box-shadow:none}
+  .ergebnis{border-left-width:4px}
+  .termin{background:#fff;color:#000;border:1px solid #999}
+  .termin h3,.termin a{color:#000}
+  footer{background:#fff;color:#000;border-top:2px solid #000;padding-top:1rem}
+  footer p,footer li,footer a,.fussnoten p,.fussnoten .stand{color:#000}
+  footer .spalten{display:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.75em;word-break:break-all}
+}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20300%22%20width%3D%221200%22%20height%3D%221200%22%20xmlns%3Ac2pa%3D%22http%3A%2F%2Fc2pa.org%2Fmanifest%22%3E%3Ctitle%3EMamma-MRT%20%E2%80%93%20Symbol%20(Radiologie%20Hamburg)%3C%2Ftitle%3E%3Crect%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22%23007aa8%22%2F%3E%3Cg%20transform%3D%22translate(0%2C34)%22%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%22116%22%20r%3D%22112%22%20fill%3D%22none%22%20stroke%3D%22%232a8fbd%22%20stroke-width%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%22150%22%20cy%3D%22116%22%20r%3D%2286%22%20fill%3D%22none%22%20stroke%3D%22%232a8fbd%22%20stroke-width%3D%221.5%22%2F%3E%3Cpath%20fill%3D%22%2368b1d4%22%20d%3D%22M56%2076%20A47%2080%200%200%200%20150%2076%20Z%22%2F%3E%3Ccircle%20cx%3D%22103%22%20cy%3D%22156%22%20r%3D%225%22%20fill%3D%22%2368b1d4%22%2F%3E%3Cpath%20fill%3D%22%23e8879f%22%20d%3D%22M152%2076%20A47%2080%200%200%200%20246%2076%20Z%22%2F%3E%3Ccircle%20cx%3D%22199%22%20cy%3D%22156%22%20r%3D%225%22%20fill%3D%22%23e8879f%22%2F%3E%3Cpath%20d%3D%22M103%20150%20L69%20100%20M103%20150%20L85%2090%20M103%20150%20L103%2086%20M103%20150%20L121%2090%20M103%20150%20L137%20100%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222.6%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%2269%22%20cy%3D%22100%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%2285%22%20cy%3D%2290%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22103%22%20cy%3D%2286%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22121%22%20cy%3D%2290%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22137%22%20cy%3D%22100%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Cpath%20d%3D%22M199%20150%20L165%20100%20M199%20150%20L181%2090%20M199%20150%20L199%2086%20M199%20150%20L217%2090%20M199%20150%20L233%20100%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222.6%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22165%22%20cy%3D%22100%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22181%22%20cy%3D%2290%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22199%22%20cy%3D%2286%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22217%22%20cy%3D%2290%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22233%22%20cy%3D%22100%22%20r%3D%223.2%22%20fill%3D%22%23ffffff%22%2F%3E%3Cpath%20d%3D%22M44%2076%20C100%2068%20200%2068%20256%2076%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%226%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Ccircle%20cx%3D%22229%22%20cy%3D%22126%22%20r%3D%224.5%22%20fill%3D%22%23ffffff%22%2F%3E%3Ccircle%20cx%3D%22229%22%20cy%3D%22126%22%20r%3D%2211%22%20fill%3D%22none%22%20stroke%3D%22%23eceae5%22%20stroke-width%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+</head>
+<body>
+
+<!-- Praxissymbol einmal als Gruppe, danach ueberall per <use> referenziert.
+     Bewusst <g> in <defs> und nicht <symbol>: Ein <use> auf ein <symbol>
+     erzeugt ein eigenes Viewport mit overflow:hidden, das bei einer viewBox
+     mit Versatz (hier "38 62") den Inhalt beschneidet. Eine Gruppe hat kein
+     eigenes Viewport und wird vollstaendig gezeichnet. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs><g id="mamma-symbol"><path fill="#68b1d4" d="M56 76 A47 80 0 0 0 150 76 Z"/><circle cx="103" cy="156" r="5" fill="#68b1d4"/><path fill="#e8879f" d="M152 76 A47 80 0 0 0 246 76 Z"/><circle cx="199" cy="156" r="5" fill="#e8879f"/><path d="M103 150 L69 100 M103 150 L85 90 M103 150 L103 86 M103 150 L121 90 M103 150 L137 100" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="69" cy="100" r="3.2" fill="#ffffff"/><circle cx="85" cy="90" r="3.2" fill="#ffffff"/><circle cx="103" cy="86" r="3.2" fill="#ffffff"/><circle cx="121" cy="90" r="3.2" fill="#ffffff"/><circle cx="137" cy="100" r="3.2" fill="#ffffff"/><path d="M199 150 L165 100 M199 150 L181 90 M199 150 L199 86 M199 150 L217 90 M199 150 L233 100" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="165" cy="100" r="3.2" fill="#ffffff"/><circle cx="181" cy="90" r="3.2" fill="#ffffff"/><circle cx="199" cy="86" r="3.2" fill="#ffffff"/><circle cx="217" cy="90" r="3.2" fill="#ffffff"/><circle cx="233" cy="100" r="3.2" fill="#ffffff"/><path d="M44 76 C100 68 200 68 256 76" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="229" cy="126" r="4.5" fill="#ffffff"/><circle cx="229" cy="126" r="11" fill="none" stroke="currentColor" stroke-width="2"/></g></defs>
+</svg>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="kontakt">
+      <a href="tel:+4940350048454">Telefon 040 3500484-54</a>
+      <a href="mailto:info@radiologie-dammtor.de">info@radiologie-dammtor.de</a>
+    </div>
+    <span class="intern">Interne Fassung</span>
+  </div>
+</div>
+
+<header class="kopf">
+  <div class="inner">
+    <span class="marke">
+      <svg aria-hidden="true" focusable="false" viewBox="38 62 224 106"><use href="#mamma-symbol"/></svg>
+      <span class="wort">
+        <span class="z1">Radiologie Hamburg</span>
+        <span class="z2">Mamma-Diagnostik</span>
+      </span>
+    </span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="inner">
+    <h1>Zahlt die Kasse die MRT der Brust?</h1>
+    <p>Eine Einordnung in wenigen Fragen</p>
+  </div>
+</div>
+
+<main>
+  <div class="banner" role="note">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+    </svg>
+    <div>
+      <strong>Was diese Seite leistet &ndash; und was nicht</strong>
+      <p>Sie ordnet die Situation den Regeln zu, nach denen in Deutschland abgerechnet wird.
+         Sie stellt keine Diagnose, spricht keine Empfehlung f&uuml;r oder gegen eine
+         Untersuchung aus und ist keine verbindliche Kostenzusage. Verbindlich Auskunft
+         geben nur die Krankenkasse und die behandelnde Praxis.</p>
+    </div>
+  </div>
+
+  <div id="app">
+    <noscript>
+      <div class="karte">
+        <h2 style="font-size:1.2rem;color:#005B7D;margin-bottom:.6rem">JavaScript ist deaktiviert</h2>
+        <p style="font-size:.95rem">Die Entscheidungshilfe ben&ouml;tigt JavaScript. Die
+           Kernaussage in K&uuml;rze: Die gesetzliche Krankenversicherung &uuml;bernimmt die
+           MRT der Brust in der ambulanten Versorgung nur in zwei F&auml;llen &ndash; zum
+           Rezidivausschluss nach brusterhaltender Therapie und zur Suche nach dem
+           Ursprungstumor bei gesicherter Lymphknotenmetastase. Bei nachgewiesener
+           Genver&auml;nderung oder hohem berechnetem Risiko l&auml;uft die Untersuchung
+           &uuml;ber die Zentren des Deutschen Konsortiums Famili&auml;rer Brust- und
+           Eierstockkrebs. In allen &uuml;brigen F&auml;llen ist sie eine
+           Selbstzahlerleistung.</p>
+      </div>
+    </noscript>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Wichtiger Hinweis:</strong> Diese Entscheidungshilfe dient der Orientierung und
+    ersetzt keine &auml;rztliche oder versicherungsrechtliche Beratung. Sie bildet die
+    ambulante vertrags&auml;rztliche Versorgung ab; im Krankenhaus und in der ambulanten
+    spezialfach&auml;rztlichen Versorgung gelten andere Regeln. Die tats&auml;chliche
+    Kosten&uuml;bernahme entscheidet im Einzelfall die Krankenkasse.
+  </div>
+</main>
+
+<footer>
+  <div class="inner">
+    <div class="spalten">
+      <div>
+        <span class="marke" style="margin-bottom:.7rem">
+          <svg aria-hidden="true" focusable="false" viewBox="38 62 224 106"><use href="#mamma-symbol"/></svg>
+          <span class="wort">
+            <span class="z1">Radiologie Hamburg</span>
+            <span class="z2">Mamma-Diagnostik</span>
+          </span>
+        </span>
+        <p>Pr&auml;zise Brustdiagnostik in Hamburg.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p>Telefon: <a href="tel:+4940350048454">040 3500484-54</a></p>
+        <p>E-Mail: <a href="mailto:info@radiologie-dammtor.de">info@radiologie-dammtor.de</a></p>
+      </div>
+      <div>
+        <h4>Interne Fassung</h4>
+        <p>Einzeldatei f&uuml;r den Gebrauch in der Praxis.</p>
+        <p>Nicht ver&ouml;ffentlichen und nicht an Patientinnen weitergeben &ndash;
+           ohne Impressum und Datenschutzhinweise ist die Seite daf&uuml;r nicht geeignet.</p>
+      </div>
+    </div>
+    <div class="fussnoten">
+      <p><strong>Medizinischer Haftungsausschluss:</strong> Diese Seite informiert &uuml;ber die
+         Kosten&uuml;bernahme, nicht &uuml;ber die medizinische Notwendigkeit einer Untersuchung.
+         Die Entscheidung &uuml;ber die Indikation zur Bildgebung liegt stets bei der
+         behandelnden &Auml;rztin oder dem behandelnden Arzt.</p>
+      <p><strong>Datenverarbeitung:</strong> Alle Eingaben werden ausschlie&szlig;lich lokal im
+         Browser verarbeitet. Es werden keine Gesundheitsdaten &uuml;bertragen oder
+         gespeichert, es werden keine Cookies gesetzt, und die Seite l&auml;dt keine
+         Inhalte von Drittanbietern.</p>
+      <p class="stand" id="standzeile"></p>
+    </div>
+  </div>
+</footer>
+
+<script>
 /*
  * Entscheidungshilfe MRT der Brust – Regelwerk und Texte
  *
@@ -725,3 +1106,304 @@ window.MAMMA_REGELN = (function () {
     stand: "22. September 2026"
   };
 })();
+
+</script>
+<script>
+/*
+ * Entscheidungshilfe MRT der Brust – Ablauflogik
+ *
+ * Diese Datei enthält keinen einzigen medizinischen Satz. Sie läuft den
+ * Fragebaum aus data/regeln.js ab und stellt ihn dar. Wer Inhalte ändert,
+ * fasst ausschließlich data/regeln.js an.
+ *
+ * Alle Eingaben bleiben im Arbeitsspeicher des Browsers. Es wird nichts
+ * übertragen, nichts gespeichert, kein Cookie gesetzt.
+ */
+(function () {
+  "use strict";
+
+  var R = window.MAMMA_REGELN;
+  var wurzel = document.getElementById("app");
+
+  /* Verlauf als Stapel: ermöglicht "Zurück" ohne Neuberechnung. */
+  var verlauf = [];
+  var aktuell = null;   // { typ: "frage"|"ergebnis", id: "..." }
+  var ersterAufbau = true;
+
+  /* ------------------------------------------------------------------ */
+  /* Hilfsmittel                                                         */
+  /* ------------------------------------------------------------------ */
+
+  /* Alles, was aus den Regeln kommt, wird escaped. Die Regeldatei ist
+     zwar vertrauenswürdig, aber ein Tippfehler mit spitzer Klammer soll
+     kein Markup erzeugen. */
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function el(tag, klasse, text) {
+    var n = document.createElement(tag);
+    if (klasse) { n.className = klasse; }
+    if (text !== undefined) { n.textContent = text; }
+    return n;
+  }
+
+  function ziel(str) {
+    var teile = String(str).split(":");
+    return { typ: teile[0], id: teile[1] };
+  }
+
+  /* Tiefe des Baums: längster Weg von der Startfrage zu einem Ergebnis.
+     Daraus entsteht die Anzeige "Frage 2 von 3" – ohne feste Zahl im Code. */
+  function maximaleTiefe(frageId, gesehen) {
+    gesehen = gesehen || {};
+    if (gesehen[frageId]) { return 0; }      /* Zyklusschutz */
+    gesehen[frageId] = true;
+    var frage = R.fragen[frageId];
+    var tiefste = 1;
+    frage.antworten.forEach(function (a) {
+      var z = ziel(a.ziel);
+      if (z.typ === "frage") {
+        var t = 1 + maximaleTiefe(z.id, gesehen);
+        if (t > tiefste) { tiefste = t; }
+      }
+    });
+    delete gesehen[frageId];
+    return tiefste;
+  }
+
+  var GESAMT = maximaleTiefe(R.start);
+
+  /* ------------------------------------------------------------------ */
+  /* Darstellung: Frage                                                  */
+  /* ------------------------------------------------------------------ */
+  function zeichneFrage(id) {
+    var frage = R.fragen[id];
+    var nr = verlauf.length + 1;
+
+    var karte = el("div", "karte");
+
+    /* Fortschritt */
+    var fort = el("div", "fortschritt");
+    var zaehler = el("span", "zaehler", "Frage " + nr + " von " + GESAMT);
+    var schiene = el("div", "schiene");
+    var fuellung = el("div", "fuellung");
+    fuellung.style.width = Math.round((nr - 1) / GESAMT * 100) + "%";
+    schiene.appendChild(fuellung);
+    fort.appendChild(zaehler);
+    fort.appendChild(schiene);
+    karte.appendChild(fort);
+
+    var block = el("div", "frage");
+
+    var h2 = el("h2", null, frage.titel);
+    h2.id = "frage-titel";
+    h2.setAttribute("tabindex", "-1");
+    block.appendChild(h2);
+
+    if (frage.hinweis) { block.appendChild(el("p", "hinweis", frage.hinweis)); }
+
+    var liste = el("div", "antworten");
+    liste.setAttribute("role", "group");
+    liste.setAttribute("aria-labelledby", "frage-titel");
+
+    frage.antworten.forEach(function (a) {
+      var knopf = el("button", "antwort");
+      knopf.type = "button";
+      knopf.appendChild(el("span", "marke"));
+      var text = el("span", "text");
+      text.appendChild(document.createTextNode(a.text));
+      if (a.zusatz) { text.appendChild(el("small", null, a.zusatz)); }
+      knopf.appendChild(text);
+      knopf.addEventListener("click", function () { antworte(a.ziel); });
+      liste.appendChild(knopf);
+    });
+
+    block.appendChild(liste);
+    karte.appendChild(block);
+
+    if (verlauf.length > 0) {
+      var akt = el("div", "aktionen");
+      var zurueck = el("button", null, "← Eine Frage zurück");
+      zurueck.type = "button";
+      zurueck.addEventListener("click", zurueckGehen);
+      akt.appendChild(zurueck);
+      karte.appendChild(akt);
+    }
+
+    setzeInhalt(karte, h2);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Darstellung: Ergebnis                                               */
+  /* ------------------------------------------------------------------ */
+  function zeichneErgebnis(id) {
+    var e = R.ergebnisse[id];
+    var behaelter = document.createDocumentFragment();
+
+    /* Ergebniskasten */
+    var kasten = el("div", "ergebnis e-" + e.art);
+    kasten.setAttribute("role", "status");
+    kasten.appendChild(el("span", "etikett", e.etikett));
+    var h2 = el("h2", null, e.titel);
+    h2.id = "ergebnis-titel";
+    h2.setAttribute("tabindex", "-1");
+    kasten.appendChild(h2);
+    kasten.appendChild(el("p", "kern", e.kernsatz));
+    (e.absaetze || []).forEach(function (t) { kasten.appendChild(el("p", null, t)); });
+    behaelter.appendChild(kasten);
+
+    /* Inhaltsblöcke */
+    (e.bloecke || []).forEach(function (b) {
+      var block = el("div", "block");
+      block.appendChild(el("h3", null, b.titel));
+      var ul = el("ul");
+      b.punkte.forEach(function (p) { ul.appendChild(el("li", null, p)); });
+      block.appendChild(ul);
+      behaelter.appendChild(block);
+    });
+
+    /* Preis – nur wo das Ergebnis ihn vorsieht */
+    if (e.preis) {
+      var preis = el("div", "preis");
+      preis.appendChild(el("span", "label", "Kosten"));
+      preis.appendChild(el("span", "betrag", R.preis.betrag));
+      preis.appendChild(el("p", null, R.preis.grundlage));
+      preis.appendChild(el("p", null, "Preisstand: " + R.preis.stand + ". " +
+        "Sie können bei Ihrer Krankenkasse einen Antrag auf Kostenübernahme " +
+        "stellen; eine Bewilligung ist damit nicht gesagt."));
+      behaelter.appendChild(preis);
+    }
+
+    /* Kontakt */
+    if (e.termin) { behaelter.appendChild(terminblock()); }
+
+    /* Quellen */
+    if (e.quellen && e.quellen.length) {
+      var q = el("div", "quellenkasten");
+      q.appendChild(el("h3", null, "Worauf sich diese Auskunft stützt"));
+      var ul = el("ul");
+      e.quellen.forEach(function (k) {
+        var quelle = R.quellen[k];
+        var li = el("li");
+        var a = el("a", null, quelle.kurz);
+        a.href = quelle.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        li.appendChild(a);
+        li.appendChild(document.createTextNode(" – " + quelle.text));
+        ul.appendChild(li);
+      });
+      q.appendChild(ul);
+      behaelter.appendChild(q);
+    }
+
+    /* Aktionen */
+    var akt = el("div", "aktionen");
+
+    var zurueck = el("button", null, "← Eine Frage zurück");
+    zurueck.type = "button";
+    zurueck.addEventListener("click", zurueckGehen);
+    akt.appendChild(zurueck);
+
+    var drucken = el("button", null, "Ergebnis drucken");
+    drucken.type = "button";
+    drucken.addEventListener("click", function () { window.print(); });
+    akt.appendChild(drucken);
+
+    var neu = el("button", null, "Von vorn beginnen");
+    neu.type = "button";
+    neu.addEventListener("click", neustart);
+    akt.appendChild(neu);
+
+    var karte = el("div", "karte");
+    karte.appendChild(behaelter);
+    karte.appendChild(akt);
+
+    setzeInhalt(karte, h2);
+  }
+
+  function terminblock() {
+    var p = R.praxis;
+    var block = el("div", "termin");
+    block.appendChild(el("h3", null, "Termin und Beratung"));
+    var ul = el("ul");
+
+    var li1 = el("li");
+    li1.appendChild(document.createTextNode("Telefonisch: "));
+    var tel = el("a", null, p.telefonAnzeige);
+    tel.href = p.telefonLink;
+    li1.appendChild(tel);
+    ul.appendChild(li1);
+
+    var li2 = el("li");
+    li2.appendChild(document.createTextNode("Online: "));
+    var dl = el("a", null, "Termin über Doctolib buchen");
+    dl.href = p.doctolib;
+    dl.target = "_blank";
+    dl.rel = "noopener noreferrer";
+    li2.appendChild(dl);
+    ul.appendChild(li2);
+
+    var li3 = el("li");
+    li3.appendChild(document.createTextNode("Per E-Mail: "));
+    var mail = el("a", null, p.mail);
+    mail.href = "mailto:" + p.mail;
+    li3.appendChild(mail);
+    li3.appendChild(document.createTextNode(
+      " – bitte ohne Angaben zu Ihrer Erkrankung, E-Mail ist kein sicherer Weg für Gesundheitsdaten."));
+    ul.appendChild(li3);
+
+    block.appendChild(ul);
+    return block;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Ablauf                                                              */
+  /* ------------------------------------------------------------------ */
+  function setzeInhalt(knoten, fokusZiel) {
+    wurzel.textContent = "";
+    wurzel.appendChild(knoten);
+    /* Fokus auf die neue Überschrift: Screenreader lesen sie vor,
+       Tastaturbedienung landet an der richtigen Stelle. Beim ersten Aufbau
+       nicht – da würde die Seite den Fokus ungefragt an sich ziehen und
+       über die Einleitung hinwegspringen. */
+    if (fokusZiel && !ersterAufbau) { fokusZiel.focus(); }
+    if (!ersterAufbau) { window.scrollTo({ top: 0, behavior: "smooth" }); }
+    ersterAufbau = false;
+  }
+
+  function zeige(z) {
+    aktuell = z;
+    if (z.typ === "frage") { zeichneFrage(z.id); } else { zeichneErgebnis(z.id); }
+  }
+
+  function antworte(zielString) {
+    verlauf.push(aktuell);
+    zeige(ziel(zielString));
+  }
+
+  function zurueckGehen() {
+    if (verlauf.length === 0) { return; }
+    zeige(verlauf.pop());
+  }
+
+  function neustart() {
+    verlauf = [];
+    zeige({ typ: "frage", id: R.start });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Start                                                               */
+  /* ------------------------------------------------------------------ */
+  var standzeile = document.getElementById("standzeile");
+  if (standzeile) { standzeile.textContent = "Stand: " + R.stand; }
+
+  neustart();
+})();
+
+</script>
+</body>
+</html>

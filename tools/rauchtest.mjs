@@ -17,7 +17,11 @@ globalThis.window = {};
 new Function(readFileSync(join(wurzel, "data/regeln.js"), "utf8"))();
 const R = globalThis.window.MAMMA_REGELN;
 
-const seite = pathToFileURL(join(wurzel, "index.html")).href;
+/* Ohne Argument wird der Mehrdatei-Stand geprüft, mit Argument eine andere
+   Datei – etwa die erzeugte Einzeldatei in dist/. */
+const zielDatei = process.argv[2] ?? "index.html";
+const einzeldatei = zielDatei !== "index.html";
+const seite = pathToFileURL(join(wurzel, zielDatei)).href;
 let geprueft = 0;
 const fehler = [];
 
@@ -135,8 +139,8 @@ if (!/Frage 1 von \d/.test(ersterZaehler ?? "")) {
   fehler.push(`Fortschrittsanzeige lautet "${ersterZaehler}".`);
 }
 
-/* --- Rechtsseiten ------------------------------------------------------- */
-for (const datei of ["impressum.html", "datenschutz.html"]) {
+/* --- Rechtsseiten (nur im Mehrdatei-Stand) ------------------------------- */
+for (const datei of einzeldatei ? [] : ["impressum.html", "datenschutz.html"]) {
   await page.goto(pathToFileURL(join(wurzel, datei)).href);
   if ((await page.locator("h1").count()) === 0) fehler.push(`${datei}: keine Überschrift.`);
   if ((await page.locator('a[href="index.html"]').count()) === 0) {
@@ -151,9 +155,44 @@ const ueberlauf = await page.evaluate(() =>
   document.documentElement.scrollWidth > document.documentElement.clientWidth);
 if (ueberlauf) fehler.push("Bei 320 px Breite entsteht waagerechtes Scrollen.");
 
+/* --- Einzeldatei: Logo und Eigenstaendigkeit ----------------------------- */
+await page.setViewportSize({ width: 1000, height: 800 });
+await page.goto(seite);
+/* Das Praxissymbol muss sichtbar gerendert sein, nicht nur im Markup stehen. */
+const logoKasten = await page.locator("header .marke svg").first().boundingBox();
+if (!logoKasten || logoKasten.width < 20 || logoKasten.height < 10) {
+  fehler.push(`Praxissymbol wird nicht dargestellt (${JSON.stringify(logoKasten)}).`);
+}
+/* Nicht nur "da", sondern vollständig: Die gezeichnete Fläche muss die ganze
+   Zeichnung umfassen. Ein beschnittenes Logo hat eine sichtbare Bounding-Box,
+   fällt bei einer reinen Vorhandenseins-Prüfung also nicht auf. */
+const inhalt = await page.locator("header .marke svg").first()
+  .evaluate((el) => { const b = el.querySelector("use").getBBox();
+                      return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+const soll = { x: 44, y: 70, w: 212, h: 91 };
+for (const k of ["x", "y", "w", "h"]) {
+  if (Math.abs(inhalt[k] - soll[k]) > 1) {
+    fehler.push(`Praxissymbol ist beschnitten oder verschoben: ${k}=${inhalt[k]}, erwartet ${soll[k]}.`);
+  }
+}
+if ((await page.locator('header .marke .z1').textContent()) !== "Radiologie Hamburg") {
+  fehler.push("Der Praxisname im Kopf stimmt nicht.");
+}
+if (einzeldatei) {
+  const html = readFileSync(join(wurzel, zielDatei), "utf8");
+  const nebendateien = [...html.matchAll(/(?:src|href)="(?!#|data:|tel:|mailto:|https?:)([^"]+)"/g)]
+    .map((m) => m[1]);
+  if (nebendateien.length) {
+    fehler.push(`Einzeldatei verweist auf Nebendateien: ${nebendateien.join(", ")}`);
+  }
+  if ((await page.locator('a[href="impressum.html"]').count()) > 0) {
+    fehler.push("Einzeldatei verlinkt noch auf impressum.html.");
+  }
+}
+
 await browser.close();
 
-console.log(`${geprueft} Wege durch den Fragebaum geprüft.`);
+console.log(`${geprueft} Wege durch den Fragebaum geprüft${einzeldatei ? " (Einzeldatei)" : ""}.`);
 if (fehler.length) {
   console.error(`\n${fehler.length} Fehler:`);
   for (const f of fehler) console.error(`  - ${f}`);

@@ -1,10 +1,18 @@
 # Entscheidungshilfe MRT der Brust
 
-Patientenseite der Radiologie Dammtor: Ordnet in bis zu vier Fragen ein, ob die
+Entscheidungshilfe der Radiologie Hamburg: Ordnet in bis zu vier Fragen ein, ob die
 MRT der Brust von der gesetzlichen Krankenversicherung übernommen wird, über
 einen anderen Weg läuft oder eine Selbstzahlerleistung ist.
 
-Ausgeliefert über GitHub Pages unter <https://mamma.rosenbaum.hamburg>.
+Es gibt zwei Auslieferungsformen:
+
+| Form | Verwendung |
+|---|---|
+| **`dist/MRT-Mamma-Kostenuebernahme.html`** | eine einzige Datei, per Doppelklick im Browser. Für die interne Nutzung in der Praxis: Netzlaufwerk, Mailanhang, Stick. Kein Server, kein Netz, keine Nebendateien. |
+| `index.html` samt Nebendateien | der Mehrdatei-Stand als Quelle und für eine mögliche Veröffentlichung |
+
+Erzeugt wird die Einzeldatei mit `npm run bauen`. Sie ist ein **Erzeugnis, keine
+zweite Quelle** – wer darin etwas ändert, verliert es beim nächsten Lauf.
 
 ## Die fachliche Kernaussage
 
@@ -61,8 +69,10 @@ datenschutz.html    Datenschutzhinweise
 stil.css            Design der Praxis, gemeinsam für alle Seiten
 data/regeln.js      Fragebaum, Ergebnisse, Quellen, Preis – der gesamte Inhalt
 app.js              Ablauflogik, ohne einen einzigen medizinischen Satz
+logo/               Praxissymbol als SVG und PNG
 tools/pruefe.mjs    Prüfung des Regelwerks
 tools/rauchtest.mjs End-to-End-Test im Browser
+tools/baue-einzeldatei.mjs  erzeugt dist/MRT-Mamma-Kostenuebernahme.html
 robots.txt          Sperrung für Suchmaschinen bis zur Freigabe
 CNAME               mamma.rosenbaum.hamburg
 ```
@@ -82,11 +92,44 @@ Bewusste Entscheidungen:
 * **Kodierung UTF-8** in allen Dateien; die Skript-Einbindungen tragen dazu ein
   ausdrückliches `charset`.
 
+## Design
+
+Die Palette ist aus dem Praxissymbol abgeleitet und steht als Variablen in
+`stil.css`:
+
+| Farbe | Im Logo | Verwendung |
+|---|---|---|
+| `#007AA8` | Konturlinie, Befundring | Leitfarbe: Hero, Links, Fortschritt |
+| `#005B7D` | abgeleitet | Kopfleiste, Fuß, Überschriften |
+| `#2A8FBD` | Kachelhintergrund | Flächen |
+| `#68B1D4` | linke Brustfläche | Rahmen, Verläufe |
+| `#E8879F` | rechte Brustfläche | **nur Akzentfläche** |
+| `#ECEAE5` | Ring der Kachel | warme Flächen |
+
+Rosa trägt auf Weiß nur 2,5:1 Kontrast. Es ist deshalb Markenakzent – die
+Kante am Kontaktblock, die Linie über dem Fuß – und niemals Schrift- oder
+Statusfarbe. Die fünf Statusfarben sind getrennt gewählt und liegen alle über
+4,5:1.
+
+### Das Symbol im Markup
+
+Das Logo steht einmal als `<g id="mamma-symbol">` in `<defs>` und wird per
+`<use>` referenziert. Bewusst **nicht** als `<symbol>`: Ein `<use>` auf ein
+`<symbol>` erzeugt ein eigenes Viewport mit `overflow:hidden`, das bei einer
+viewBox mit Versatz – hier `38 62 224 106` – den Inhalt unten und rechts
+beschneidet. Das sieht man einem Logo in Kopfzeilengröße nicht an; der
+Rauchtest misst deshalb die gezeichnete Fläche gegen die erwartete Ausdehnung.
+
+Die Leitfarbe des Symbols kommt aus `color`. Das ist die einzige Eigenschaft,
+die in den Schattenbaum eines `<use>` vererbt wird – so trägt dasselbe Symbol
+im hellen Kopf die Markenfarbe und im dunklen Fuß Weiß.
+
 ## Prüfen
 
 ```bash
-npm test              # Regelwerk und Browser
+npm test              # Regelwerk, Mehrdatei-Stand, Einzeldatei
 npm run pruefe        # nur das Regelwerk – braucht kein Playwright
+npm run bauen         # nur die Einzeldatei erzeugen
 ```
 
 `tools/pruefe.mjs` prüft: Startknoten vorhanden, jedes Ziel existiert, jede
@@ -101,6 +144,10 @@ Browser ab und prüft Ergebnis, Farbcodierung, Preisanzeige und Quellenzahl.
 Dazu Zurück-Knopf, Neustart, Tastaturbedienung, Fokusführung,
 Fortschrittsanzeige, die Rechtsseiten und die Darstellung bei 320 px Breite.
 Jede Konsolenmeldung des Browsers gilt als Fehler.
+
+Beides läuft zweimal: gegen den Mehrdatei-Stand und gegen die erzeugte
+Einzeldatei. Dabei wird zusätzlich geprüft, dass die Einzeldatei auf keine
+Nebendatei mehr verweist und dass das Praxissymbol unbeschnitten gezeichnet wird.
 
 Der Rauchtest braucht Playwright und Chromium. Weicht die installierte
 Chromium-Fassung von der erwarteten ab, nennt man den Pfad über die

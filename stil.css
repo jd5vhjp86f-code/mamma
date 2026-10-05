@@ -1,93 +1,124 @@
 /*
- * Radiologie Dammtor – Entscheidungshilfe MRT der Brust
+ * Radiologie Hamburg – Entscheidungshilfe MRT der Brust
  *
- * Farben, Typografie und Bauteile folgen dem Auftritt der Praxis. Keine
- * Webfonts, keine externen Ressourcen: Damit verlässt keine Besucher-IP den
- * ausliefernden Server, und es entsteht keine Einwilligungspflicht.
+ * Die Palette ist aus dem Praxissymbol abgeleitet. Die fünf Markenfarben
+ * stehen unverändert im Logo:
+ *
+ *   #007aa8  Konturlinie und Befundring   -> --blau       (Leitfarbe)
+ *   #2a8fbd  Hintergrund der Kachel       -> --blau-mittel
+ *   #68b1d4  linke Brustfläche            -> --blau-hell
+ *   #e8879f  rechte Brustfläche           -> --rosa       (nur Fläche, nie Text)
+ *   #eceae5  warmes Weiß des Rings        -> --creme
+ *
+ * Rosa trägt auf Weiß nur 2,5:1 Kontrast. Es ist deshalb Akzentfläche und
+ * Markenzeichen, niemals Schrift- oder Statusfarbe. Die Statusfarben sind
+ * getrennt gewählt und liegen alle über 4,5:1.
+ *
+ * Keine Webfonts, keine externen Ressourcen: Die Seite läuft als einzelne
+ * Datei vom Dateisystem, auch ohne Netz.
  */
 :root{
-  --blau:#0F2846; --blau-hell:#1A3D66; --teal:#00838F; --teal-hell:#E0F2F1;
-  --grau-bg:#F8FAFC; --grau-100:#F1F5F9; --grau-200:#E2E8F0; --grau-400:#94A3B8;
-  --grau-600:#475569; --grau-800:#1E293B;
+  /* --- Marke ------------------------------------------------------- */
+  --blau:#007AA8; --blau-tief:#005B7D; --blau-mittel:#2A8FBD;
+  --blau-hell:#68B1D4; --blau-blass:#E3F1F8;
+  --rosa:#E8879F; --rosa-blass:#FDEEF3; --creme:#ECEAE5;
+
+  /* --- Neutrale ---------------------------------------------------- */
+  --bg:#F7F9FB; --grau-100:#F1F5F8; --grau-200:#DFE7EC; --grau-400:#8FA3B0;
+  --grau-600:#4A5C68; --grau-800:#1D2B34;
+
+  /* --- Status (alle ≥ 4,5:1 auf Weiß) ------------------------------ */
   --gruen-bg:#ECFDF5; --gruen:#047857; --gruen-rand:#10B981;
-  --gelb-bg:#FFFBEB; --gelb:#B45309; --gelb-rand:#F59E0B;
-  --blau-bg:#EFF6FF; --blau-akzent:#1D4ED8; --blau-rand:#60A5FA;
-  --lila-bg:#F5F3FF; --lila:#5B21B6; --lila-rand:#8B5CF6;
-  --radius:12px;
-  --serif:Georgia,"Times New Roman",serif;
+  --gelb-bg:#FFF8EC; --gelb:#B45309; --gelb-rand:#F0A33C;
+  --lila-bg:#F5F3FF; --lila:#6D28D9; --lila-rand:#A78BFA;
+
+  --radius:14px;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--sans);background:var(--grau-bg);color:var(--grau-800);
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--grau-800);
      line-height:1.6;-webkit-font-smoothing:antialiased;
      display:flex;flex-direction:column;min-height:100vh}
-h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.25;margin:0}
+h1,h2,h3,h4{font-weight:700;line-height:1.25;margin:0;letter-spacing:-.015em}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
-/* Überschriften bekommen beim Seitenwechsel programmatisch den Fokus, damit
-   Screenreader sie vorlesen und die Tastaturbedienung an der richtigen Stelle
-   weitergeht. Ein sichtbarer Rahmen hilft dabei niemandem und irritiert. */
+:focus-visible{outline:3px solid var(--blau);outline-offset:2px;border-radius:5px}
 h2[tabindex="-1"]:focus,h2[tabindex="-1"]:focus-visible{outline:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
          clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* --- Kopf ------------------------------------------------------------ */
-.topbar{background:var(--blau);color:#fff;font-size:.8rem}
+.topbar{background:var(--blau-tief);color:#fff;font-size:.8rem}
 .topbar .inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;
                flex-wrap:wrap;padding:.5rem 1rem}
-.topbar a{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none}
-.topbar a:hover{color:var(--teal-hell)}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:var(--blau-hell)}
 .topbar .kontakt{display:flex;gap:1.25rem;flex-wrap:wrap}
+.topbar .intern{font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+                font-size:.7rem;color:var(--creme)}
+
 .kopf{background:#fff;border-bottom:1px solid var(--grau-200)}
-.kopf .inner{display:flex;justify-content:space-between;align-items:center;padding:1rem}
-.logo{text-decoration:none}
-.logo span{display:block;font-family:var(--serif);line-height:1.05}
-.logo .z1{font-size:1.6rem;color:var(--blau)}
-.logo .z2{font-size:1.25rem;color:var(--teal)}
+.kopf .inner{display:flex;align-items:center;gap:.9rem;padding:.9rem 1rem}
+.marke{display:flex;align-items:center;gap:.85rem;text-decoration:none}
+/* Die Leitfarbe des Symbols kommt aus "color". Das ist die einzige Eigenschaft,
+   die in den Schattenbaum eines <use> vererbt wird - so trägt dasselbe Symbol
+   im hellen Kopf die Markenfarbe und im dunklen Fuß Weiß. */
+.marke svg{display:block;width:72px;height:auto;flex:0 0 auto;color:var(--blau)}
+.marke .wort{display:flex;flex-direction:column;line-height:1.1}
+.marke .z1{font-size:1.35rem;font-weight:700;color:var(--blau-tief);letter-spacing:-.02em}
+.marke .z2{font-size:.78rem;font-weight:600;color:var(--blau);letter-spacing:.14em;
+           text-transform:uppercase}
 .inner{max-width:72rem;margin:0 auto}
 
 /* --- Hero ------------------------------------------------------------ */
-.hero{background:var(--blau-hell);color:#fff;text-align:center;padding:2.5rem 1rem}
-.hero h1{font-size:1.7rem;margin-bottom:.5rem}
-.hero p{margin:0;color:var(--teal-hell);font-size:1.05rem}
+.hero{background:var(--blau);color:#fff;padding:2.25rem 1rem;position:relative;overflow:hidden}
+/* Die konzentrischen Ringe des Logos als ruhiges Hintergrundmotiv. */
+.hero::after{content:"";position:absolute;right:-90px;top:50%;transform:translateY(-50%);
+             width:320px;height:320px;border-radius:50%;
+             border:1.5px solid rgba(255,255,255,.17);
+             box-shadow:0 0 0 48px rgba(255,255,255,.055) inset;pointer-events:none}
+.hero .inner{position:relative;z-index:1;text-align:center}
+.hero h1{font-size:1.65rem;margin-bottom:.45rem}
+.hero p{margin:0;color:var(--creme);font-size:1.02rem}
 
 /* --- Layout ---------------------------------------------------------- */
 main{max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;width:100%;flex:1 0 auto}
 
 /* --- Hinweisbanner --------------------------------------------------- */
-.banner{background:var(--blau-bg);border:2px solid var(--blau-rand);border-radius:var(--radius);
-        padding:1rem 1.15rem;margin-bottom:1.5rem;display:flex;gap:.9rem;align-items:flex-start}
-.banner strong{color:var(--blau-akzent);display:block;margin-bottom:.15rem}
+.banner{background:var(--blau-blass);border:1.5px solid var(--blau-hell);
+        border-radius:var(--radius);padding:1rem 1.15rem;margin-bottom:1.5rem;
+        display:flex;gap:.9rem;align-items:flex-start}
+.banner strong{color:var(--blau-tief);display:block;margin-bottom:.15rem}
 .banner p{margin:0;font-size:.92rem}
-.banner svg{flex:0 0 auto;color:var(--blau-akzent);margin-top:.15rem}
+.banner svg{flex:0 0 auto;color:var(--blau);margin-top:.15rem}
 
 /* --- Karte ----------------------------------------------------------- */
 .karte{background:#fff;border:1px solid var(--grau-200);border-radius:var(--radius);
-       padding:1.25rem;margin-bottom:1.25rem}
+       padding:1.25rem;margin-bottom:1.25rem;box-shadow:0 1px 2px rgba(0,91,125,.04)}
 @media (min-width:640px){ .karte{padding:1.75rem} }
 
 /* --- Fortschritt ----------------------------------------------------- */
-.fortschritt{margin-bottom:1.25rem}
+.fortschritt{margin-bottom:1.3rem}
 .fortschritt .schiene{height:6px;background:var(--grau-200);border-radius:999px;overflow:hidden}
-.fortschritt .fuellung{height:100%;background:var(--teal);width:0;border-radius:999px;
-                       transition:width .35s ease}
-.fortschritt .zaehler{font-size:.75rem;font-weight:700;text-transform:uppercase;
-                      letter-spacing:.06em;color:var(--grau-600);margin-bottom:.45rem;display:block}
+.fortschritt .fuellung{height:100%;width:0;border-radius:999px;transition:width .35s ease;
+                       background:linear-gradient(90deg,var(--blau-hell),var(--blau))}
+.fortschritt .zaehler{font-size:.73rem;font-weight:700;text-transform:uppercase;
+                      letter-spacing:.08em;color:var(--blau);margin-bottom:.45rem;display:block}
 
 /* --- Frage ----------------------------------------------------------- */
-.frage h2{font-size:1.25rem;color:var(--blau);margin-bottom:.35rem}
+.frage h2{font-size:1.3rem;color:var(--blau-tief);margin-bottom:.35rem}
 .frage .hinweis{font-size:.9rem;color:var(--grau-600);margin:0 0 1.1rem}
 .antworten{display:flex;flex-direction:column;gap:.55rem;margin:0;padding:0;border:0}
 .antwort{display:flex;gap:.85rem;align-items:flex-start;width:100%;text-align:left;
-         padding:.9rem 1rem;background:#fff;border:2px solid var(--grau-200);border-radius:10px;
+         padding:.9rem 1rem;background:#fff;border:2px solid var(--grau-200);border-radius:11px;
          cursor:pointer;font:inherit;color:inherit;
          transition:border-color .15s,background .15s,transform .1s}
-.antwort:hover{border-color:var(--teal);background:rgba(224,242,241,.35)}
+.antwort:hover{border-color:var(--blau);background:var(--blau-blass)}
 .antwort:active{transform:translateY(1px)}
-.antwort .marke{flex:0 0 auto;width:1.3rem;height:1.3rem;border:2px solid var(--grau-400);
-                border-radius:50%;margin-top:.15rem;transition:border-color .15s,box-shadow .15s}
-.antwort:hover .marke{border-color:var(--teal);box-shadow:inset 0 0 0 4px var(--teal)}
+.antwort .marke-punkt{flex:0 0 auto;width:1.3rem;height:1.3rem;border:2px solid var(--grau-400);
+                      border-radius:50%;margin-top:.15rem;
+                      transition:border-color .15s,box-shadow .15s}
+.antwort:hover .marke-punkt{border-color:var(--blau);box-shadow:inset 0 0 0 4px var(--blau)}
 .antwort .text{font-size:.95rem}
 .antwort .text small{display:block;color:var(--grau-600);font-size:.83rem;margin-top:.2rem;
                      line-height:1.45}
@@ -96,14 +127,14 @@ main{max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;width:100%;flex:1 0 
 .ergebnis{border-radius:var(--radius);border:1px solid;border-left-width:7px;padding:1.25rem;
           margin-bottom:1.25rem}
 .ergebnis .etikett{font-size:.72rem;font-weight:700;text-transform:uppercase;
-                   letter-spacing:.07em;display:block;margin-bottom:.35rem}
-.ergebnis h2{font-size:1.3rem;margin-bottom:.6rem}
+                   letter-spacing:.08em;display:block;margin-bottom:.35rem}
+.ergebnis h2{font-size:1.32rem;margin-bottom:.6rem}
 .ergebnis p{margin:.6rem 0 0;font-size:.95rem}
 .ergebnis .kern{font-size:1rem;font-weight:600;margin-top:0}
 .e-kasse{background:var(--gruen-bg);border-color:var(--gruen-rand)}
 .e-kasse .etikett,.e-kasse h2{color:var(--gruen)}
-.e-weg{background:var(--blau-bg);border-color:var(--blau-rand)}
-.e-weg .etikett,.e-weg h2{color:var(--blau-akzent)}
+.e-weg{background:var(--blau-blass);border-color:var(--blau)}
+.e-weg .etikett,.e-weg h2{color:var(--blau-tief)}
 .e-schritt{background:var(--lila-bg);border-color:var(--lila-rand)}
 .e-schritt .etikett,.e-schritt h2{color:var(--lila)}
 .e-selbst{background:var(--gelb-bg);border-color:var(--gelb-rand)}
@@ -112,85 +143,97 @@ main{max-width:52rem;margin:0 auto;padding:1.5rem 1rem 3rem;width:100%;flex:1 0 
 .e-offen .etikett,.e-offen h2{color:var(--grau-600)}
 
 /* --- Blöcke im Ergebnis ---------------------------------------------- */
-.block{background:#fff;border:1px solid var(--grau-200);border-radius:10px;
+.block{background:#fff;border:1px solid var(--grau-200);border-radius:11px;
        padding:1.1rem 1.2rem;margin-bottom:1rem}
-.block h3{font-size:1.02rem;color:var(--blau);margin-bottom:.6rem;font-family:var(--serif)}
+.block h3{font-size:1.02rem;color:var(--blau-tief);margin-bottom:.6rem}
 .block ul{margin:0;padding-left:1.15rem}
 .block li{font-size:.92rem;margin-bottom:.5rem}
+.block li::marker{color:var(--blau-hell)}
 .block li:last-child{margin-bottom:0}
 
 .preis{background:#fff;border:1px solid var(--gelb-rand);border-left:5px solid var(--gelb-rand);
-       border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1rem}
-.preis .betrag{font-family:var(--sans);font-size:1.7rem;font-weight:800;color:var(--gelb);
-               line-height:1.1;display:block}
-.preis .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+       border-radius:11px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+.preis .betrag{font-size:1.75rem;font-weight:800;color:var(--gelb);line-height:1.1;display:block}
+.preis .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
               color:var(--grau-600);display:block;margin-bottom:.15rem}
 .preis p{font-size:.88rem;color:var(--grau-600);margin:.5rem 0 0}
 
-.termin{background:var(--blau);color:#fff;border-radius:10px;padding:1.1rem 1.2rem;
-        margin-bottom:1rem}
+/* Kontaktblock: nimmt das Rosa des Logos als Akzentkante auf. */
+.termin{background:var(--blau-tief);color:#fff;border-radius:11px;padding:1.1rem 1.2rem;
+        margin-bottom:1rem;border-left:5px solid var(--rosa)}
 .termin h3{font-size:1.02rem;color:#fff;margin-bottom:.6rem}
 .termin ul{list-style:none;margin:0;padding:0}
 .termin li{font-size:.93rem;margin-bottom:.45rem}
 .termin li:last-child{margin-bottom:0}
-.termin a{color:var(--teal-hell);font-weight:700}
+.termin a{color:var(--blau-hell);font-weight:700}
 
 .quellenkasten{font-size:.85rem;color:var(--grau-600);border-top:1px solid var(--grau-200);
                padding-top:.9rem;margin-top:.25rem}
-.quellenkasten h3{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-                  color:var(--grau-600);font-family:var(--sans);margin-bottom:.5rem}
+.quellenkasten h3{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+                  color:var(--grau-600);margin-bottom:.5rem}
 .quellenkasten ul{margin:0;padding-left:1.15rem}
 .quellenkasten li{margin-bottom:.45rem;line-height:1.5}
-.quellenkasten a{color:var(--teal);font-weight:600}
+.quellenkasten a{color:var(--blau);font-weight:600}
 
 /* --- Aktionen -------------------------------------------------------- */
 .aktionen{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.25rem}
 .aktionen button{font-family:inherit;font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;
-                 border-radius:9px;border:2px solid var(--grau-200);background:#fff;
+                 border-radius:10px;border:2px solid var(--grau-200);background:#fff;
                  color:var(--grau-600);cursor:pointer}
-.aktionen button:hover{border-color:var(--teal);color:var(--blau)}
+.aktionen button:hover{border-color:var(--blau);color:var(--blau-tief);background:var(--blau-blass)}
 
 /* --- Haftungshinweis -------------------------------------------------- */
-.disclaimer{font-size:.84rem;color:var(--grau-600);background:var(--grau-100);
-            border:1px solid var(--grau-200);border-radius:10px;padding:.95rem 1.1rem}
+.disclaimer{font-size:.84rem;color:var(--grau-600);background:var(--creme);
+            border:1px solid var(--grau-200);border-radius:11px;padding:.95rem 1.1rem}
 .disclaimer strong{color:var(--grau-800)}
 
 /* --- Fuß -------------------------------------------------------------- */
-footer{background:var(--blau);color:#fff;border-top:6px solid var(--teal);
-       padding:2.5rem 1rem 1.5rem;flex-shrink:0}
+footer{background:var(--blau-tief);color:#fff;border-top:5px solid var(--rosa);
+       padding:2.25rem 1rem 1.5rem;flex-shrink:0}
 footer .spalten{display:grid;gap:2rem;grid-template-columns:1fr;margin-bottom:2rem}
-footer h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin:0 0 .7rem;
-          font-family:var(--sans)}
-footer p,footer li{font-size:.85rem;color:#CBD5E1;margin:.2rem 0}
+footer h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;margin:0 0 .7rem;
+          color:var(--creme)}
+footer p,footer li{font-size:.85rem;color:#CBDDE6;margin:.2rem 0}
 footer ul{list-style:none;padding:0;margin:0}
-footer a{color:#CBD5E1}
-.fussnoten{border-top:1px solid var(--blau-hell);padding-top:1.5rem}
-.fussnoten p{font-size:.78rem;line-height:1.6;color:#CBD5E1;max-width:48rem;margin:0 auto .6rem}
-.fussnoten .stand{color:var(--teal-hell);font-weight:700}
+footer a{color:#CBDDE6}
+footer .marke svg{color:#fff;width:56px}
+footer .marke .wort{white-space:nowrap}
+footer .marke .z1{color:#fff;font-size:1.15rem}
+footer .marke .z2{color:var(--blau-hell)}
+.fussnoten{border-top:1px solid rgba(255,255,255,.16);padding-top:1.5rem}
+.fussnoten p{font-size:.78rem;line-height:1.6;color:#CBDDE6;max-width:48rem;margin:0 auto .6rem}
+.fussnoten .stand{color:var(--creme);font-weight:700}
 
 @media (min-width:640px){
-  .hero h1{font-size:2.1rem}
+  .hero h1{font-size:2.05rem}
   footer .spalten{grid-template-columns:repeat(3,1fr)}
+  .marke svg{width:88px}
+  .marke .z1{font-size:1.5rem}
 }
 
 /* --- Rechtsseiten ----------------------------------------------------- */
 .rechtstext{max-width:46rem}
-.rechtstext .karte h2{font-size:1.15rem;color:var(--blau);margin:1.75rem 0 .5rem}
+.rechtstext .karte h2{font-size:1.15rem;color:var(--blau-tief);margin:1.75rem 0 .5rem}
 .rechtstext .karte h2:first-of-type{margin-top:0}
 .rechtstext p{margin:.4rem 0;font-size:.95rem}
 .rechtstext dl{margin:.4rem 0}
-.rechtstext dt{font-weight:700;color:var(--blau);margin-top:.7rem;font-size:.9rem}
+.rechtstext dt{font-weight:700;color:var(--blau-tief);margin-top:.7rem;font-size:.9rem}
 .rechtstext dd{margin:.15rem 0 0;font-size:.95rem}
-.rechtstext a{color:var(--teal)}
-.zurueck{display:inline-block;margin-top:1.5rem;font-size:.9rem;color:var(--teal);
+.rechtstext a{color:var(--blau)}
+.zurueck{display:inline-block;margin-top:1.5rem;font-size:.9rem;color:var(--blau);
          text-decoration:none;font-weight:600}
 .zurueck:hover{text-decoration:underline}
 
 /* --- Druck ------------------------------------------------------------ */
 @media print{
-  .topbar,.hero,.aktionen,.fortschritt,.banner{display:none!important}
+  .topbar,.aktionen,.fortschritt,.banner{display:none!important}
   body{background:#fff}
-  .karte,.ergebnis,.block,.preis{break-inside:avoid;border:1px solid #999;background:#fff}
+  .hero{background:#fff;color:#000;padding:1rem 0;border-bottom:2px solid #000}
+  .hero::after{display:none}
+  .hero h1{font-size:1.4rem}
+  .hero p{color:#000}
+  .karte,.ergebnis,.block,.preis{break-inside:avoid;border:1px solid #999;background:#fff;
+                                 box-shadow:none}
   .ergebnis{border-left-width:4px}
   .termin{background:#fff;color:#000;border:1px solid #999}
   .termin h3,.termin a{color:#000}

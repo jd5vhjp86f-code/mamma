@@ -3,16 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Zahlt die Krankenkasse die MRT der Brust? Entscheidungshilfe der Radiologie Dammtor Hamburg: in wenigen Fragen zur Einordnung nach EBM, Leitlinie und Vertragslage.">
-<!-- Vorlaeufig gesperrt bis zur Freigabe durch die Praxis.
-     Zum Start entfernen bzw. auf "index, follow" setzen und robots.txt anpassen. -->
+<meta name="description" content="Zahlt die Krankenkasse die MRT der Brust? Interne Entscheidungshilfe der Radiologie Hamburg: in wenigen Fragen zur Einordnung nach EBM, Leitlinie und Vertragslage.">
+<!-- Interne Fassung. Nicht fuer die Veroeffentlichung bestimmt. -->
 <meta name="robots" content="noindex, nofollow">
-<title>Zahlt die Kasse die MRT der Brust? &ndash; Radiologie Dammtor</title>
+<title>Zahlt die Kasse die MRT der Brust? &ndash; Radiologie Hamburg</title>
 <!-- Bewusst ohne externe Ressourcen: keine CDNs, keine Webfonts, keine Analytik.
-     Damit verlaesst keine Besucher-IP den ausliefernden Server. -->
-<link rel="stylesheet" href="stil.css">
+     Die Seite laeuft auch als einzelne Datei vom Dateisystem, ganz ohne Netz. -->
+<link rel="stylesheet" href="stil.css"><!--STIL-->
+<link rel="icon" href="logo/symbol-quadrat.svg"><!--ICON-->
 </head>
 <body>
+
+<!-- Praxissymbol einmal als Gruppe, danach ueberall per <use> referenziert.
+     Bewusst <g> in <defs> und nicht <symbol>: Ein <use> auf ein <symbol>
+     erzeugt ein eigenes Viewport mit overflow:hidden, das bei einer viewBox
+     mit Versatz (hier "38 62") den Inhalt beschneidet. Eine Gruppe hat kein
+     eigenes Viewport und wird vollstaendig gezeichnet. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs><g id="mamma-symbol"><path fill="#68b1d4" d="M56 76 A47 80 0 0 0 150 76 Z"/><circle cx="103" cy="156" r="5" fill="#68b1d4"/><path fill="#e8879f" d="M152 76 A47 80 0 0 0 246 76 Z"/><circle cx="199" cy="156" r="5" fill="#e8879f"/><path d="M103 150 L69 100 M103 150 L85 90 M103 150 L103 86 M103 150 L121 90 M103 150 L137 100" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="69" cy="100" r="3.2" fill="#ffffff"/><circle cx="85" cy="90" r="3.2" fill="#ffffff"/><circle cx="103" cy="86" r="3.2" fill="#ffffff"/><circle cx="121" cy="90" r="3.2" fill="#ffffff"/><circle cx="137" cy="100" r="3.2" fill="#ffffff"/><path d="M199 150 L165 100 M199 150 L181 90 M199 150 L199 86 M199 150 L217 90 M199 150 L233 100" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="165" cy="100" r="3.2" fill="#ffffff"/><circle cx="181" cy="90" r="3.2" fill="#ffffff"/><circle cx="199" cy="86" r="3.2" fill="#ffffff"/><circle cx="217" cy="90" r="3.2" fill="#ffffff"/><circle cx="233" cy="100" r="3.2" fill="#ffffff"/><path d="M44 76 C100 68 200 68 256 76" stroke="currentColor" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="229" cy="126" r="4.5" fill="#ffffff"/><circle cx="229" cy="126" r="11" fill="none" stroke="currentColor" stroke-width="2"/></g></defs>
+</svg>
 
 <div class="topbar">
   <div class="inner">
@@ -20,14 +29,18 @@
       <a href="tel:+4940350048454">Telefon 040 3500484-54</a>
       <a href="mailto:info@radiologie-dammtor.de">info@radiologie-dammtor.de</a>
     </div>
+    <span class="intern">Interne Fassung</span>
   </div>
 </div>
 
 <header class="kopf">
   <div class="inner">
-    <a class="logo" href="https://www.radiologie-dammtor.de">
-      <span class="z1">Radiologie</span>
-      <span class="z2">Dammtor</span>
+    <a class="marke" href="index.html"><!--MARKE-HREF-->
+      <svg aria-hidden="true" focusable="false" viewBox="38 62 224 106"><use href="#mamma-symbol"/></svg>
+      <span class="wort">
+        <span class="z1">Radiologie Hamburg</span>
+        <span class="z2">Mamma-Diagnostik</span>
+      </span>
     </a>
   </div>
 </header>
@@ -35,7 +48,7 @@
 <div class="hero">
   <div class="inner">
     <h1>Zahlt die Kasse die MRT der Brust?</h1>
-    <p>Eine Einordnung in wenigen Fragen &ndash; anonym und ohne Anmeldung</p>
+    <p>Eine Einordnung in wenigen Fragen</p>
   </div>
 </div>
 
@@ -47,17 +60,17 @@
     </svg>
     <div>
       <strong>Was diese Seite leistet &ndash; und was nicht</strong>
-      <p>Sie ordnet Ihre Situation den Regeln zu, nach denen in Deutschland abgerechnet wird.
+      <p>Sie ordnet die Situation den Regeln zu, nach denen in Deutschland abgerechnet wird.
          Sie stellt keine Diagnose, spricht keine Empfehlung f&uuml;r oder gegen eine
          Untersuchung aus und ist keine verbindliche Kostenzusage. Verbindlich Auskunft
-         geben nur Ihre Krankenkasse und Ihre behandelnde Praxis.</p>
+         geben nur die Krankenkasse und die behandelnde Praxis.</p>
     </div>
   </div>
 
   <div id="app">
     <noscript>
       <div class="karte">
-        <h2 style="font-size:1.2rem;color:#0F2846;margin-bottom:.6rem">JavaScript ist deaktiviert</h2>
+        <h2 style="font-size:1.2rem;color:#005B7D;margin-bottom:.6rem">JavaScript ist deaktiviert</h2>
         <p style="font-size:.95rem">Die Entscheidungshilfe ben&ouml;tigt JavaScript. Die
            Kernaussage in K&uuml;rze: Die gesetzliche Krankenversicherung &uuml;bernimmt die
            MRT der Brust in der ambulanten Versorgung nur in zwei F&auml;llen &ndash; zum
@@ -66,8 +79,7 @@
            Genver&auml;nderung oder hohem berechnetem Risiko l&auml;uft die Untersuchung
            &uuml;ber die Zentren des Deutschen Konsortiums Famili&auml;rer Brust- und
            Eierstockkrebs. In allen &uuml;brigen F&auml;llen ist sie eine
-           Selbstzahlerleistung. Rufen Sie uns gerne an:
-           <a href="tel:+4940350048454" style="color:#00838F;font-weight:600">040 3500484-54</a>.</p>
+           Selbstzahlerleistung.</p>
       </div>
     </noscript>
   </div>
@@ -77,7 +89,7 @@
     ersetzt keine &auml;rztliche oder versicherungsrechtliche Beratung. Sie bildet die
     ambulante vertrags&auml;rztliche Versorgung ab; im Krankenhaus und in der ambulanten
     spezialfach&auml;rztlichen Versorgung gelten andere Regeln. Die tats&auml;chliche
-    Kosten&uuml;bernahme entscheidet im Einzelfall Ihre Krankenkasse.
+    Kosten&uuml;bernahme entscheidet im Einzelfall die Krankenkasse.
   </div>
 </main>
 
@@ -85,33 +97,35 @@
   <div class="inner">
     <div class="spalten">
       <div>
-        <span class="logo" style="display:block;margin-bottom:.6rem">
-          <span class="z1" style="color:#fff;font-size:1.2rem">Radiologie</span>
-          <span class="z2" style="font-size:1rem">Dammtor</span>
+        <span class="marke" style="margin-bottom:.7rem">
+          <svg aria-hidden="true" focusable="false" viewBox="38 62 224 106"><use href="#mamma-symbol"/></svg>
+          <span class="wort">
+            <span class="z1">Radiologie Hamburg</span>
+            <span class="z2">Mamma-Diagnostik</span>
+          </span>
         </span>
-        <p>Pr&auml;zise Diagnostik im Herzen von Hamburg.</p>
+        <p>Pr&auml;zise Brustdiagnostik in Hamburg.</p>
       </div>
       <div>
         <h4>Kontakt</h4>
         <p>Telefon: <a href="tel:+4940350048454">040 3500484-54</a></p>
         <p>E-Mail: <a href="mailto:info@radiologie-dammtor.de">info@radiologie-dammtor.de</a></p>
       </div>
-      <div>
+      <div><!--NUR-MEHRDATEIEN-ANFANG-->
         <h4>Rechtliches</h4>
         <ul>
-          <li><a href="https://www.radiologie-dammtor.de">www.radiologie-dammtor.de</a></li>
           <li><a href="impressum.html">Impressum</a></li>
           <li><a href="datenschutz.html">Datenschutz</a></li>
         </ul>
-      </div>
+      </div><!--NUR-MEHRDATEIEN-ENDE-->
     </div>
     <div class="fussnoten">
       <p><strong>Medizinischer Haftungsausschluss:</strong> Diese Seite informiert &uuml;ber die
          Kosten&uuml;bernahme, nicht &uuml;ber die medizinische Notwendigkeit einer Untersuchung.
          Die Entscheidung &uuml;ber die Indikation zur Bildgebung liegt stets bei der
          behandelnden &Auml;rztin oder dem behandelnden Arzt.</p>
-      <p><strong>Datenverarbeitung:</strong> Alle Eingaben werden ausschlie&szlig;lich lokal in
-         Ihrem Browser verarbeitet. Es werden keine Gesundheitsdaten &uuml;bertragen oder
+      <p><strong>Datenverarbeitung:</strong> Alle Eingaben werden ausschlie&szlig;lich lokal im
+         Browser verarbeitet. Es werden keine Gesundheitsdaten &uuml;bertragen oder
          gespeichert, es werden keine Cookies gesetzt, und die Seite l&auml;dt keine
          Inhalte von Drittanbietern.</p>
       <p class="stand" id="standzeile"></p>
@@ -119,7 +133,7 @@
   </div>
 </footer>
 
-<script src="data/regeln.js" charset="UTF-8"></script>
-<script src="app.js" charset="UTF-8"></script>
+<script src="data/regeln.js" charset="UTF-8"></script><!--REGELN-->
+<script src="app.js" charset="UTF-8"></script><!--APP-->
 </body>
 </html>
