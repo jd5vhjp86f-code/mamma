@@ -82,8 +82,9 @@ window.MAMMA_REGELN = (function () {
     gbaScreening: {
       kurz: "G-BA, Mammographie-Screening-Programm",
       text: "Anspruch auf Mammographie alle zwei Jahre für Frauen von 50 bis 75 Jahren. " +
-            "Über eine Absenkung der unteren Altersgrenze auf 45 Jahre berät der G-BA; " +
-            "eine Entscheidung wird für Oktober 2026 erwartet.",
+            "Über eine Absenkung der unteren Altersgrenze auf 45 Jahre entscheidet der " +
+            "G-BA voraussichtlich im Oktober 2026; bis zur Umsetzung im Programm " +
+            "vergeht danach weitere Zeit.",
       url: "https://www.g-ba.de/themen/methodenbewertung/ambulant/frueherkennung-krankheiten/erwachsene/krebsfrueherkennung/mammographie-screening/"
     },
     bmvae: {
@@ -198,12 +199,13 @@ window.MAMMA_REGELN = (function () {
                "verhindern, dass frische Heilungsvorgänge als Tumor fehlgedeutet werden.",
       antworten: [
         {
-          text: "Die Operation ist mehr als 6 Monate her, beziehungsweise die " +
-                "Bestrahlung ist seit mehr als 12 Monaten abgeschlossen",
+          text: "Die Operation ist mehr als 6 Monate her – und, falls bestrahlt " +
+                "wurde, ist die Bestrahlung seit mehr als 12 Monaten abgeschlossen",
+          zusatz: "Wurde beides gemacht, müssen beide Fristen abgelaufen sein.",
           ziel: "frage:rezidivBildgebung"
         },
         {
-          text: "Nein, die Behandlung liegt kürzer zurück",
+          text: "Nein – mindestens eine der beiden Fristen ist noch nicht abgelaufen",
           ziel: "ergebnis:rezidivFrist"
         },
         {
@@ -223,6 +225,11 @@ window.MAMMA_REGELN = (function () {
           ziel: "ergebnis:gkvRezidiv"
         },
         {
+          text: "Ja – und sie haben den Verdacht geklärt",
+          zusatz: "Dann ist eine MRT in der Regel nicht nötig.",
+          ziel: "ergebnis:beratung"
+        },
+        {
           text: "Nein, noch nicht – oder ich weiß es nicht",
           ziel: "ergebnis:vorbefundeRezidiv"
         }
@@ -233,12 +240,20 @@ window.MAMMA_REGELN = (function () {
       titel: "Wurde nach dem Ursprungstumor bereits gesucht?",
       hinweis: "Die Kassenleistung setzt voraus, dass der Ursprungstumor weder in " +
                "der körperlichen Untersuchung noch in Mammographie und Ultraschall " +
-               "darstellbar war.",
+               "darstellbar war. Entscheidend ist eine abgeschlossene Beurteilung – " +
+               "schauen Sie dafür bitte auf die BI-RADS-Kategorie im Befund.",
       antworten: [
         {
-          text: "Ja, Mammographie und Ultraschall wurden durchgeführt und zeigten " +
-                "keinen Ursprungstumor",
+          text: "Ja, beide wurden durchgeführt und abschließend beurteilt – ohne " +
+                "Hinweis auf einen Ursprungstumor",
+          zusatz: "Im Befund steht eine abschließende Kategorie, meist BI-RADS 1 oder 2.",
           ziel: "ergebnis:gkvCup"
+        },
+        {
+          text: "Im Befund steht BI-RADS 0",
+          zusatz: "Diese Kategorie bedeutet, dass die Beurteilung noch nicht " +
+                  "abgeschlossen ist.",
+          ziel: "ergebnis:birads0"
         },
         {
           text: "Nein, noch nicht – oder ich weiß es nicht",
@@ -377,6 +392,43 @@ window.MAMMA_REGELN = (function () {
       termin: false
     },
 
+    birads0: {
+      art: "schritt",
+      etikett: "Die Beurteilung ist noch nicht abgeschlossen",
+      titel: "BI-RADS 0 heißt: Die Bildgebung ist noch nicht fertig",
+      kernsatz: "BI-RADS 0 ist kein Ergebnis, sondern ein Zwischenstand. Die Kategorie " +
+                "sagt, dass eine abschließende Beurteilung noch nicht möglich war und " +
+                "Aufnahmen oder Voraufnahmen fehlen – sie sagt nicht, dass nichts " +
+                "gefunden wurde.",
+      absaetze: [
+        "Das ist der Punkt, an dem es bei der Kostenfrage am häufigsten schiefgeht. " +
+        "Für die Suche nach dem Ursprungstumor verlangt der EBM, dass dieser in " +
+        "Mammographie und Ultraschall nicht darstellbar war. Ein BI-RADS 0 belegt das " +
+        "gerade nicht: Es hält fest, dass die Frage noch offen ist. Wer es als " +
+        "„unauffällig“ liest, erwartet eine Kassenleistung und bekommt an der Anmeldung " +
+        "eine Rechnung.",
+        "Die Lücke ist meist schnell geschlossen. Es fehlen in der Regel Zusatzaufnahmen, " +
+        "ein ergänzender Ultraschall oder der Vergleich mit Voraufnahmen. All das ist " +
+        "Leistung der gesetzlichen Krankenversicherung."
+      ],
+      bloecke: [
+        {
+          titel: "Was jetzt sinnvoll ist",
+          punkte: [
+            "Lassen Sie die Bildgebung vervollständigen. Was fehlt, steht im Befund " +
+            "oder weiß die Praxis, die ihn erstellt hat.",
+            "Danach steht eine abschließende Kategorie im Befund – in der Regel " +
+            "BI-RADS 1 bis 5. Erst damit lässt sich die Frage der Kostenübernahme " +
+            "beantworten.",
+            "Beginnen Sie diese Abfrage dann noch einmal mit der neuen Kategorie, " +
+            "oder rufen Sie uns an."
+          ]
+        }
+      ],
+      quellen: ["ebm34431", "s3"],
+      termin: false
+    },
+
     vorbefundeCup: {
       art: "schritt",
       etikett: "Ein Schritt fehlt noch",
@@ -500,8 +552,10 @@ window.MAMMA_REGELN = (function () {
           punkte: [
             "Besprechen Sie mit der befundenden Praxis, ob eine Gewebeentnahme der " +
             "klarere Weg ist. In den allermeisten Fällen ist sie es.",
-            "Bei BI-RADS 0 fehlen schlicht noch Aufnahmen: Oft klären Zusatzaufnahmen " +
-            "oder ein ergänzender Ultraschall den Befund vollständig – beides Kassenleistung.",
+            "Steht im Befund BI-RADS 0, ist die Beurteilung noch gar nicht abgeschlossen. " +
+            "Das ist kein Entwarnungs- und kein Verdachtsbefund, sondern ein Zwischenstand: " +
+            "Es fehlen Aufnahmen. Zusatzaufnahmen, ein ergänzender Ultraschall oder der " +
+            "Vergleich mit Voraufnahmen klären ihn meist vollständig – alles Kassenleistung.",
             "Wenn Sie sich nach diesem Gespräch für die MRT entscheiden, führen wir sie " +
             "als Selbstzahlerleistung durch und besprechen vorher Nutzen und Grenzen mit Ihnen."
           ]
@@ -695,7 +749,12 @@ window.MAMMA_REGELN = (function () {
       absaetze: [
         "Bevor wir einen Termin vereinbaren, klären wir mit Ihnen, ob die MRT in Ihrer " +
         "Situation überhaupt das richtige Verfahren ist. Es kommt vor, dass Mammographie " +
-        "und Ultraschall die Frage besser und günstiger beantworten."
+        "und Ultraschall die Frage besser und günstiger beantworten.",
+        "Falls Sie gesetzlich versichert sind: Bitte gehen Sie diese Abfrage einmal über " +
+        "den Weg „gesetzlich versichert“ durch, bevor Sie sich festlegen. Es gibt zwei " +
+        "Situationen, in denen die Kasse die MRT vollständig übernimmt, und eine weitere, " +
+        "in der sie über ein spezialisiertes Zentrum übernommen wird. Niemand soll hier " +
+        "etwas bezahlen, worauf er Anspruch hat."
       ],
       bloecke: [
         {
@@ -722,6 +781,6 @@ window.MAMMA_REGELN = (function () {
     fragen: FRAGEN,
     ergebnisse: ERGEBNISSE,
     start: "versicherung",
-    stand: "22. September 2026"
+    stand: "5. Oktober 2026"
   };
 })();
